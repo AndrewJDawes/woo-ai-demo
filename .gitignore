@@ -1,0 +1,20 @@
+.env
+.DS_Store
+
+# Uploads
+html/wp-content/uploads/
+
+# Log files
+*.log
+
+# All plugins
+#
+# Note: If you wish to whitelist plugins,
+# uncomment the next line
+#/wp-content/plugins
+
+# All themes
+#
+# Note: If you wish to whitelist themes,
+# uncomment the next line
+#/wp-content/themes
