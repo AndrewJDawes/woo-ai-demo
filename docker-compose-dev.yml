@@ -21,7 +21,7 @@ services:
             woo-ai-demo-network:
 
     db:
-        image: mysql/mysql-server:8.0 # ARM-compatible version
+        image: mariadb:11
         environment:
             MYSQL_DATABASE: ${WORDPRESS_DB_NAME:-db}
             MYSQL_USER: ${WORDPRESS_DB_USER:-db}
@@ -62,15 +62,14 @@ services:
             echo 'Waiting for database connection...' && sleep 5; \
             done && \
             if ! wp core is-installed --path=/var/www/html; then \
-            wp core download --path=/var/www/html && \
-            wp config create --dbname=${WORDPRESS_DB_NAME:-db} --dbuser=${WORDPRESS_DB_USER:-db} --dbpass=${WORDPRESS_DB_PASSWORD:-db} --dbhost=${WORDPRESS_DB_HOST:-db:3306} --path=/var/www/html && \
             wp core install --url=${WORDPRESS_CONFIG_WP_HOME:-http://localhost:${WORDPRESS_HOST_PORT:-80}} \
             --title=\"${WORDPRESS_SITE_TITLE:-WordPress Site}\" \
             --admin_user=\"${WORDPRESS_ADMIN_USER:-admin}\" \
             --admin_password=\"${WORDPRESS_ADMIN_PASSWORD:-admin}\" \
             --admin_email=\"${WORDPRESS_ADMIN_EMAIL:-admin@example.com}\" \
             --path=/var/www/html; \
-            fi"
+            fi; \
+            sleep infinity;"
         networks:
             woo-ai-demo-network:
 
