@@ -1,0 +1,37 @@
+{#*******************************************
+
+Generated schema
+
+{{ dump(data) }}
+
+********************************************#}
+
+##########################################################################################################################
+#
+# This schema is generated.
+# Any modification may be erased.
+# Use the inherited schema {{ data.label }} to add elements to, or move/inherit elements from, this schema
+#
+##########################################################################################################################
+
+schema {{ data.label }}_generated {
+
+    {{ include('schema_document_generated.twig', {data: {label: data.label, fields: data.document_fields}}, with_context = true) }}
+
+    {% if data.rank_profiles %}
+        {{ include('schema_rank_profiles_generated.twig', {data: data.rank_profiles }, with_context = true) }}
+    {% endif %}
+
+    {% if data.input_text_embedding_fields %}
+        {{ include('schema_input_text_embedding_fields_generated.twig', {data: data.input_text_embedding_fields}, with_context = true) }}
+    {% endif %}
+
+   {% if data.input_text_fields %}
+       {{ include('schema_input_text_fields_generated.twig', {data: data.input_text_fields}, with_context = true) }}
+   {% endif %}
+
+   {% if data.fieldsets %}
+       {{ include('schema_fieldsets_generated.twig', {data: data.fieldsets}, with_context = true) }}
+   {% endif %}
+
+}

@@ -1,0 +1,13 @@
+{#*************************************
+
+Build the check boxes
+
+{{ dump(data) }}
+
+**************************************#}
+
+{% extends "facet/facet.twig" %}
+
+{% block hierarchy %}
+    {{ include(_self, {facet: item}, with_context = false) }}
+{% endblock hierarchy %}

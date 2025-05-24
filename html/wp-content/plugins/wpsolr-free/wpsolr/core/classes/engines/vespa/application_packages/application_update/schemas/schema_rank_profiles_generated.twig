@@ -1,0 +1,36 @@
+{#*******************************************
+
+Generated rank profiles
+
+********************************************#}
+
+{% if "wpsolr_rank_text" in data %}
+    rank-profile wpsolr_rank_text inherits default {
+        first-phase {
+            expression: bm25(wpsolr_input_text)
+        }
+    }
+{% endif %}
+
+{% if "wpsolr_rank_text_vector" in data %}
+    rank-profile wpsolr_rank_text_vector {
+        num-threads-per-search: 1
+        match-features: distance(label, wpsolr_search_operator_nearest_neighbor_text)
+        inputs {
+            query(q_384)  tensor<float>(x[384])
+            query(q_768)  tensor<float>(x[768])
+            query(q_1024) tensor<float>(x[1024])
+        }
+        first-phase {
+            expression: closeness(label, wpsolr_search_operator_nearest_neighbor_text)
+        }
+    }
+{% endif %}
+
+{% if "wpsolr_rank_text_hybrid" in data %}
+    rank-profile wpsolr_rank_text_hybrid inherits wpsolr_rank_text_vector {
+        first-phase {
+            expression: bm25(wpsolr_input_text) + closeness(label, wpsolr_search_operator_nearest_neighbor_text)
+        }
+    }
+{% endif %}

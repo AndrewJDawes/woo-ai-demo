@@ -1,0 +1,22 @@
+{#*******************************************
+
+Custom schema
+
+{{ dump(data) }}
+
+********************************************#}
+
+##########################################################################################################################
+#
+# This schema can be customized.
+# Add elements to, or inherit/move elements from, the parent schema {{ data.label }}_generated.
+#
+##########################################################################################################################
+
+schema {{ data.label }} inherits {{ data.label }}_generated {
+
+    stemming: best
+
+    {{ include('schema_document_custom.twig', {document: {label: data.label }}, with_context = true) }}
+
+}

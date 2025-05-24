@@ -1,0 +1,114 @@
+{# *************************************
+
+Build the facets
+
+{{ dump(facets) }}
+
+************************************** #}
+
+<script>
+    jQuery(document).ready(function ($) {
+        function toggle_show_more(element_clicked, element_toggled_class) {
+            element_clicked.toggle();
+            element_clicked.closest('ul').find('.' + element_toggled_class).toggle();
+            element_clicked.closest('ul').find('.wpsolr_hide').toggle(600);
+        }
+
+        $(document).on('click', '.wpsolr-show-more', function () {
+            toggle_show_more($(this), 'wpsolr-show-less');
+        });
+
+        $(document).on('click', '.wpsolr-show-less', function () {
+            toggle_show_more($(this), 'wpsolr-show-more');
+        });
+    });
+</script>
+
+{% if facets.html %}
+    {# Just display custom HTML #}
+
+    {{ facets.html }}
+
+{% elseif facets.facets %}
+
+    <div class="res_facets {{ facets.is_rtl ? 'wpsolr_rtl' : 'wpsolr_ltr' }}">
+
+        <style>
+            .wpsolr_facet_orientation {
+                float: left;
+                margin: 20px 20px 0 0;
+                min-width: 200px;
+            }
+        </style>
+
+        <!-- Starts with some custom css -->
+        {{ facets.css }}
+        <div>
+            <label class="wdm_label">{{ facets.labels.facets_header }}</label>
+            <input type="hidden" name="sel_fac_field" id="sel_fac_field">
+            <div class="wdm_ul" id="wpsolr_section_facets">
+
+                <div class="wpsolr_facet_checkbox {{ is_facet_selected ? ' checked' : '' }}">
+                    <div class="select_opt wpsolr_remove_facets" id="wpsolr_remove_facets"
+                         data-wpsolr-facet-data='{{ {type: facets.facet_type_field }| json_encode }}'>
+
+                        {% if facets.is_generate_facet_permalink %}
+                            {# Link to the permalink home page #}
+
+                            <a class="wpsolr_permalink"
+                               href="{{ facets.redirect_home_href }}"
+                               title="{{ facets.facets_element_all_results }}">
+                                {{ facets.labels.facets_element_all_results }}
+                            </a>
+
+                        {% else %}
+                            {# Link to the current page #}
+
+                            {{ facets.labels.facets_element_all_results }}
+
+                        {% endif %}
+
+                    </div>
+                </div>
+
+                {% for facet in facets.facets %}
+
+                    {# Show all facets not selected as "Invisible" in the Widget settings #}
+                    {% if "wpsolr_no_skin" != facet.facet_layout_skin_id %}
+
+                        {# Add layout javascript/css code and files #}
+                        {% block facet_js %}
+                            {{ facet.facet_layout_skin_js }}
+                        {% endblock facet_js %}
+
+                        {% if "facets_orientation_horizontal" == facets.facets_orientation %}
+                            <div class="wpsolr_facet_orientation">
+                        {% endif %}
+
+
+                        <div class="wpsolr_facet_title {{ facet.class_prefix }}_{{ facet.id }}">
+                            {{ facets.labels.facets_title|format( facet.name ) }}
+                        </div>
+
+                        {# Use the current facet template, else use the general facets template. #}
+                        {% set facet_template =  facet.facet_template ? facet.facet_template : facets.labels.facets_element %}
+
+                        {# Insert the facet #}
+                        {% block block_facets_loop %}
+                            {{ include(facet.facet_template_file|format('twig'), {facet: facet, labels: facets.labels,template: facet.facet_template_file}, with_context = false) }}
+                        {% endblock %}
+
+                        {% if "facets_orientation_horizontal" == facets.facets_orientation %}
+                            </div>
+                        {% endif %}
+
+                    {% endif %}
+
+                {% endfor %}
+
+            </div>
+        </div>
+
+    </div>
+
+{% endif %}

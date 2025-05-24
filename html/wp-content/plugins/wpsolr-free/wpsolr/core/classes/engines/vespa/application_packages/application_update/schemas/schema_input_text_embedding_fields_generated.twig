@@ -1,0 +1,22 @@
+{#*******************************************
+
+Generated input embedding fields
+
+{{ dump(data) }}
+
+********************************************#}
+
+{% for component_id, field in data %}
+    field {{ field.definition.field_label }} type tensor<float>(x[{{ field.definition.vector_dimension }}]) {
+        indexing {
+            {{ field.definition.index_pattern|format(field.fields | map((field_label) => "(input #{field_label} || \"\") ") | join(' . " " . ')) }} | embed {{ component_id }} | attribute
+        }
+        {% if field.definition.attribute %}
+            attribute {
+            {% if field.definition.attribute.distance-metric %}
+                distance-metric: {{ field.definition.attribute.distance-metric }}
+            {% endif %}
+            }
+        {% endif %}
+        }
+{% endfor %}

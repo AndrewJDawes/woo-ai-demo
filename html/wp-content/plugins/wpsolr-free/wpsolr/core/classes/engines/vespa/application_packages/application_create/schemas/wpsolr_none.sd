@@ -1,0 +1,13 @@
+# See:
+#  - https://docs.vespa.ai/en/schemas.html
+
+#
+# Fake schema. Not used.
+# (A schema is mandatory when an application is created)
+#
+schema wpsolr_none {
+
+    document wpsolr_none {
+
+    }
+}

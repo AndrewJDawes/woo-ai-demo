@@ -1,0 +1,21 @@
+{# *************************************
+
+Build the select box
+
+{{ dump(data) }}
+
+************************************** #}
+
+{% extends "facet/facet.twig" %}
+
+{% block item %}
+    <option class='select_opt wpsolr_facet_option {{ item.selected? "checked" : "" }} {{ item.class_level }} {{ item.html_class }}'
+            value="{{ data.id }}:{{ item.escaped_value }}"
+            data-wpsolr-facet-data='{{ item.html_data|json_encode }}'
+            {{ item.selected? "selected" : "" }}
+    >{{ function('str_pad', '', item.level, '-') }} {{ item.content }}</option>
+{% endblock item %}
+
+{% block hierarchy %}
+    {{ include(_self, {facet: item}, with_context = false) }}
+{% endblock hierarchy %}

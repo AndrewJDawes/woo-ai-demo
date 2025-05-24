@@ -1,0 +1,14 @@
+{#*************************************
+
+Build the did you mean section
+
+{{ dump(did_you_mean_localized) }}
+
+**************************************#}
+
+{% if did_you_mean_localized %}
+    <div class="res_did_you_mean">
+        {{ did_you_mean_localized }}
+    </div>
+{% endif %}
+

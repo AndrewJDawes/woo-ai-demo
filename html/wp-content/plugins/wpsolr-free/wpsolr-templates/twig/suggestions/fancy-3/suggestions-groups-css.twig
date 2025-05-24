@@ -1,0 +1,81 @@
+{#*******************************************
+
+Fancy base css
+
+********************************************#}
+
+{# Fancy css #}
+{{ include ("suggestions/fancy-3/suggestions-css.twig") }}
+
+<style>
+    .wpsolr_suggestions{
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    .wpsolr_suggestions li {
+        align-items: center;
+        background-color: #fff;
+        box-shadow: 0 2px 4px 0 rgba(29,29,29,.07);
+        box-sizing: border-box;
+    }
+
+    .wpsolr_suggestions li .flex{
+        display: flex;
+        width: 100%;
+        margin: 0;
+    }
+
+    .wpsolr_suggestions li .flex .result-image {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .wpsolr_suggestions li .flex .result-image img{
+        max-width: 70%;
+        margin: 0 auto;
+    }
+
+    .wpsolr_suggestions li .flex .result-text{
+        flex: 2;
+        font-size: 12px;
+        font-weight: 400;
+    }
+
+    .wpsolr_suggestions li .flex .result-text a{
+        color: #212121;
+        text-decoration: none;
+        background-color: transparent;
+    }
+
+    .wpsolr_suggestions li .flex .result-text .subhead{
+        font-size: 24px;
+        font-family: sans-serif;
+        font-weight: 700;
+        line-height: 24px;
+        color: #1d1d1d;
+        display: flex;
+        flex-direction: column;
+        margin: 0 0 4% 0;
+        padding: 0 0 0 50%;
+    }
+
+    .wpsolr_suggestions li .flex .result-text .subhead .add_to_cart_button{
+        align-items: center;
+        background: #e2001a;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        font-size: 13px;
+        height: 40px;
+        justify-content: center;
+        min-width: 40px;
+        outline: none;
+        padding: 0;
+        position: relative;
+    }
+</style>

@@ -1,0 +1,14 @@
+{#*************************************
+
+Build the color picker
+
+{{ dump(data) }}
+
+**************************************#}
+
+{% extends "facet/facet.twig" %}
+
+{% block item_inner %}
+    <label style="background-color:{{ item.value_localized }}; color:rgba(148, 148, 148, 1);"><i></i></label>
+{% endblock item_inner %}
+

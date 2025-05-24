@@ -1,0 +1,23 @@
+{#*************************************
+
+Build the ion range slider
+
+{{ dump(data) }}
+
+**************************************#}
+
+{% extends "facet/facet.twig" %}
+
+{% block item_inner %}
+    <input type="text"
+           class="wpsolr-flatpickr-date-picker"
+           placeholder="Select Date.."
+           value=""
+           data-min="{{ item.min }}"
+           data-max="{{ item.max }}"
+           data-from="{{ item.from }}"
+           data-to="{{ item.to }}"
+    />
+{#    // how do i make this input so I don't need to parse through a multi-dimensional array to get data attributes in .wwpsolr-flatpickr-date-picker#}
+{% endblock item_inner %}
+

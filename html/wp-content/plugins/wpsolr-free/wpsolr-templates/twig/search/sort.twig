@@ -1,0 +1,22 @@
+{#*************************************
+
+Build the sort select box:
+- Display nothing if no sort items
+
+{{ dump(sort) }}
+
+**************************************#}
+
+{% if sort and sort.items %}
+    <div>
+        <label class="wdm_label">{{ sort.header }}</label>
+
+        <label>
+            <select class="select_field">
+                {% for sort in sort.items %}
+                    <option value="{{ sort.id }}" {{ sort.selected ? "selected" : "" }}>{{ sort.name }}</option>
+                {% endfor %}
+            </select>
+        </label>
+    </div>
+{% endif %}

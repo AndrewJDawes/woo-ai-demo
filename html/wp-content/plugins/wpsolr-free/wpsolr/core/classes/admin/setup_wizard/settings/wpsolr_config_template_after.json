@@ -1,0 +1,13 @@
+{
+  "wdm_solr_res_data": {
+    "default_search": "1",
+    "default_home": "1",
+    "default_author": "1",
+    "default_year": "1",
+    "default_month": "1",
+    "default_day": "1",
+    "default_category": "1",
+    "default_tag": "1",
+    "default_post_type": "1"
+  }
+}

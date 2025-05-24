@@ -1,0 +1,16 @@
+{#*************************************
+
+Build the select2 box
+
+{{ dump(data) }}
+
+**************************************#}
+
+{% extends "facet/facet-select.twig" %}
+
+{% block facet_header %}
+<select class="wpsolr-select2"
+        {{ facet.facet_is_multiple ? "multiple='multiple'" : "" }}
+        data-placeholder='{{ facet.facet_placeholder }}'
+>
+{% endblock facet_header %}

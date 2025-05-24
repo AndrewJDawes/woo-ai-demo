@@ -1,0 +1,35 @@
+{# *******************************************
+
+Build the recommendations results
+
+{{ dump(recommendations) }}
+
+******************************************** #}
+
+{# Fancy css #}
+
+
+{# Custom css #}
+{{ include ("recommendations/recommendations-custom-css.twig", {css: recommendations.settings.css}, with_context = false) }}
+
+{# Example: show the custom header added to the template data #}
+{{ recommendations.settings.example_custom_header }}
+
+<ul class="wpsolr_recommendations c{{ recommendations.settings.recommendation_uuid }}">
+
+    {% for result in recommendations.results %}
+
+        <li>
+            <div class="flex">
+                <div class="result-text">
+                    <div class="-title-wrap">
+                        <p class="wpsolr-result-title"><a href="{{ result.title.href }}"
+                                            title="{{ result.title.title }}">{{ result.title.title }}</a></p>
+                    </div>
+                </div>
+            </div>
+        </li>
+
+    {% endfor %}
+
+</ul>

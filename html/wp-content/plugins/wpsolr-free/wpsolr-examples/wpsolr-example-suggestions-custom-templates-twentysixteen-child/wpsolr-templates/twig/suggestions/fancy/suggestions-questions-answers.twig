@@ -1,0 +1,60 @@
+{# *******************************************
+
+Build the suggestions results
+
+{{ dump(suggestions) }}
+
+******************************************** #}
+
+{# Fancy css #}
+{{ include ("suggestions/fancy/suggestions-groups-css.twig") }}
+
+{% if suggestions.settings.image_width_pct > 0 %}
+    <style>
+        .c{{ suggestions.settings.suggestion_uuid }} .result-image {
+            width: {{ suggestions.settings.image_width_pct }}%;
+        }
+    </style>
+{% endif %}
+
+{# Custom css #}
+{{ include ("suggestions/suggestions-custom-css.twig", {css: suggestions.settings.css}, with_context = false) }}
+
+{# Example: show the custom header added to the template data #}
+{{ suggestions.settings.example_custom_header }}
+
+<ul class="wpsolr_suggestions c{{ suggestions.settings.suggestion_uuid }}">
+
+    {% for result in suggestions.results %}
+
+        <li>
+            <div class="flex">
+                {% if result.image_src and suggestions.settings.image_width_pct > 0 %}
+                    <div class="result-image">
+                        <a href="{{ result.image_src }}" title="{{ result.title.title }}">
+                            <img src="{{ result.image_src }}" alt="{{ result.title.title }}">
+                        </a>
+                    </div>
+                {% endif %}
+                <div class="result-text">
+                    <div class="title-wrap">
+                        <p class="title"><a href="{{ result.title.href }}"
+                                            title="{{ result.wpsolr_questions_answers.answer }}">{{ result.wpsolr_questions_answers.answer }}</a>
+                        </p>
+                    </div>
+
+                    {# Other information, like price, added by WPSOLR extensiàon or custom code #}
+                    {% for subtitle in result.subtitles %}
+                        <p class="subhead">{{ subtitle }}</p>
+                    {% endfor %}
+
+                    {% if suggestions.settings.is_show_text and result.content|length > 10 %}
+                        <p class="desc">{{ result.content }}</p></a>
+                    {% endif %}
+                </div>
+            </div>
+        </li>
+
+    {% endfor %}
+
+</ul>

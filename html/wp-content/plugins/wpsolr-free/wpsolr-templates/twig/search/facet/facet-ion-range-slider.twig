@@ -1,0 +1,21 @@
+{#*************************************
+
+Build the ion range slider
+
+{{ dump(data) }}
+
+**************************************#}
+
+{% extends "facet/facet.twig" %}
+
+{% block item_inner %}
+    <input type="text"
+           class="wpsolr-ion-range-slider"
+           value=""
+           data-min="{{ item.min }}"
+           data-max="{{ item.max }}"
+           data-from="{{ item.from }}"
+           data-to="{{ item.to }}"
+    />
+{% endblock item_inner %}
+

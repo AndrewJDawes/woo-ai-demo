@@ -1,0 +1,16 @@
+{#*******************************************
+
+Build rows of results
+
+{{ dump(results) }}
+
+********************************************#}
+
+<div class='results-by-facets'>
+    {% if results.items %}
+        {% for result in results.items %}
+            {{ include('result.twig', {result: result}, with_context = true) }}
+            <hr>
+        {% endfor %}
+    {% endif %}
+</div>

@@ -1,0 +1,575 @@
+POST /test99/_doc/
+{
+  "text": "i-pod",
+   "analyzer": "english_with_synonym"
+}
+
+GET /test99/_search
+{
+  "query": {
+    "bool": {
+      "must": {
+        "query_string": {
+          "query": "text:(i-pod)",
+          "default_operator": "AND",
+          "analyzer": "english_with_synonym"
+        }
+      }
+    }
+  }
+}
+
+GET /test99/_analyze
+{
+  "field": "text",
+  "text": "i-pod"
+}
+
+GET /test99/_analyze
+{
+  "analyzer": "english_with_synonym",
+  "text": "i-pod"
+}
+
+
+DELETE test99
+
+POST /test99/_close
+PUT /test99
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "english_synonym": {
+          "type": "synonym_graph",
+          "synonyms": [
+            "i-pod, i pod, eyepod => ipod,"
+          ],
+          "updateable": true
+        }
+      }
+    }
+  }
+}
+POST /test99/_open
+
+PUT /test99
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "english_synonym": {
+          "type": "synonym_graph",
+          "synonyms": [
+              "i-pod, i pod => ipod,"
+            ],
+          "updateable": false
+        }
+      },
+      "analyzer": {
+        "english_with_synonym": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "english_synonym"
+          ]
+        },
+        "default": {
+          "type": "english"
+        },
+        "default_search": {
+          "type": "english"
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "text": {
+        "type": "text",
+        "analyzer": "english",
+        "search_analyzer": "english_with_synonym"
+      }
+    }
+  }
+}
+
+
+
+GET /my_new_index/_analyze
+{
+  "analyzer": "english_with_synonym",
+  "text": "sea biscuit"
+}
+
+GET /my_new_index/_analyze
+{
+  "field": "text",
+  "text": "sea biscuit"
+}
+
+POST /my_new_index/_reload_search_analyzers
+
+DELETE my_new_index
+
+POST /my_new_index/_doc/
+{
+  "text": "sea biscuit"
+}
+
+GET /my_new_index/_search
+{
+  "from": 0,
+  "size": 20,
+  "highlight": {
+    "require_field_match": false,
+    "pre_tags": [
+      ""
+    ],
+    "post_tags": [
+      "</b>"
+    ],
+    "fields": {
+      "title": {
+        "fragment_size": 100,
+        "number_of_fragments": 1
+      },
+      "content": {
+        "fragment_size": 100,
+        "number_of_fragments": 1
+      },
+      "comments": {
+        "fragment_size": 100,
+        "number_of_fragments": 1
+      }
+    }
+  },
+  "_source": [
+    "id",
+    "PID",
+    "type",
+    "meta_type_s",
+    "title",
+    "numcomments",
+    "comments",
+    "displaydate",
+    "displaymodified",
+    "*categories_str",
+    "author",
+    "*post_thumbnail_href_str",
+    "*post_href_str",
+    "snippet_s"
+  ],
+  "query": {
+    "bool": {
+      "must": {
+        "query_string": {
+          "query": "text:(seabiscuit)",
+          "default_operator": "AND"
+        }
+      },
+      "filter": {
+        "bool": {
+          "must": [
+            {
+              "bool": {
+                "must_not": [
+                  {
+                    "terms": {
+                      "post_status_s": [
+                        "draft",
+                        "pending",
+                        "trash",
+                        "future",
+                        "private",
+                        "auto-draft"
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "bool": {
+                "must": {
+                  "bool": {
+                    "must": [
+                      {
+                        "terms": {
+                          "type": [
+                            "attachment"
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "bool": {
+                "should": [
+                  {
+                    "bool": {
+                      "must_not": [
+                        {
+                          "bool": {
+                            "must": {
+                              "exists": {
+                                "field": "is_excluded_s"
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "terms": {
+                      "is_excluded_s": [
+                        "n"
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "bool": {
+                "must_not": [
+                  {
+                    "terms": {
+                      "_id": [
+                        "wpsolr_doc_id_attachment"
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "post_filter": {
+    "bool": {
+      "must": [
+        {
+          "bool": {
+            "must": [
+              {
+                "terms": {
+                  "type": [
+                    "attachment"
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
+
+PUT /my_new_index
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "english_stop": {
+          "type": "stop",
+          "stopwords": "_english_"
+        },
+        "english_stemmer": {
+          "type": "stemmer",
+          "language": "english"
+        },
+        "english_possessive_stemmer": {
+          "type": "stemmer",
+          "language": "possessive_english"
+        },
+        "synonym": {
+          "type": "synonym_graph",
+          "synonyms_path": "synonym.txt",
+          "updateable": false
+        },
+        "stemmer": {
+          "type": "stemmer",
+          "language": "english"
+        },
+        "autocompleteFilter": {
+          "max_shingle_size": "4",
+          "min_shingle_size": "2",
+          "type": "shingle"
+        },
+        "stopwords": {
+          "type": "stop",
+          "stopwords": [
+            "_english_"
+          ]
+        }
+      },
+      "analyzer": {
+        "english_with_synonym": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "english_possessive_stemmer",
+            "lowercase",
+            "english_stop",
+            "english_stemmer",
+            "synonym"
+          ]
+        },
+        "wpsolr_analyser_did_you_mean": {
+          "filter": [
+            "lowercase"
+          ],
+          "char_filter": [
+            "html_strip"
+          ],
+          "type": "custom",
+          "tokenizer": "standard"
+        },
+        "wpsolr_analyser_autocomplete": {
+          "filter": [
+            "lowercase",
+            "autocompleteFilter"
+          ],
+          "char_filter": [
+            "html_strip"
+          ],
+          "type": "custom",
+          "tokenizer": "standard"
+        },
+        "default": {
+          "type": "english"
+        },
+        "default_search": {
+          "type": "english"
+        }
+      }
+    }
+  },
+  "mappings": {
+    "dynamic_templates": [
+      {
+        "text_en": {
+          "match": "text",
+          "mapping": {
+            "type": "text"
+          }
+        }
+      },
+      {
+        "*_i": {
+          "match": "*_i",
+          "mapping": {
+            "type": "long"
+          }
+        }
+      },
+      {
+        "*_s": {
+          "match": "*_s",
+          "mapping": {
+            "type": "keyword"
+          }
+        }
+      },
+      {
+        "*_str": {
+          "match": "*_str",
+          "mapping": {
+            "type": "keyword"
+          }
+        }
+      },
+      {
+        "*_l": {
+          "match": "*_l",
+          "mapping": {
+            "type": "long"
+          }
+        }
+      },
+      {
+        "*_t": {
+          "match": "*_t",
+          "mapping": {
+            "type": "text",
+            "analyzer": "english_with_synonym"
+          }
+        }
+      },
+      {
+        "*_b": {
+          "match": "*_b",
+          "mapping": {
+            "type": "boolean"
+          }
+        }
+      },
+      {
+        "*_f": {
+          "match": "*_f",
+          "mapping": {
+            "type": "float"
+          }
+        }
+      },
+      {
+        "*_d": {
+          "match": "*_d",
+          "mapping": {
+            "type": "double"
+          }
+        }
+      },
+      {
+        "*_dt": {
+          "match": "*_dt",
+          "mapping": {
+            "type": "date"
+          }
+        }
+      },
+      {
+        "*_ll": {
+          "match": "*_ll",
+          "mapping": {
+            "type": "geo_point"
+          }
+        }
+      },
+      {
+        "*_nobj": {
+          "match": "*_nobj",
+          "mapping": {
+            "type": "nested"
+          }
+        }
+      }
+    ],
+    "properties": {
+      "id": {
+        "type": "keyword"
+      },
+      "PID": {
+        "type": "keyword"
+      },
+      "blogid": {
+        "type": "keyword"
+      },
+      "blogdomain": {
+        "type": "keyword"
+      },
+      "blogpath": {
+        "type": "keyword"
+      },
+      "wp": {
+        "type": "keyword"
+      },
+      "permalink": {
+        "type": "keyword",
+        "copy_to": [
+          "text"
+        ]
+      },
+      "title": {
+        "type": "text",
+        "analyzer": "english_with_synonym",
+        "copy_to": [
+          "text",
+          "spell",
+          "autocomplete"
+        ]
+      },
+      "content": {
+        "type": "text",
+        "analyzer": "english_with_synonym",
+        "copy_to": [
+          "text",
+          "spell",
+          "autocomplete"
+        ]
+      },
+      "numcomments": {
+        "type": "integer"
+      },
+      "comments": {
+        "type": "text",
+        "analyzer": "english_with_synonym"
+      },
+      "categories": {
+        "type": "text",
+        "analyzer": "english_with_synonym",
+        "copy_to": [
+          "text",
+          "spell",
+          "autocomplete"
+        ]
+      },
+      "categoriessrch": {
+        "type": "text",
+        "analyzer": "english_with_synonym"
+      },
+      "tags": {
+        "type": "keyword",
+        "copy_to": [
+          "text",
+          "spell",
+          "autocomplete"
+        ]
+      },
+      "tagssrch": {
+        "type": "text",
+        "analyzer": "english_with_synonym"
+      },
+      "author": {
+        "type": "keyword"
+      },
+      "type": {
+        "type": "keyword"
+      },
+      "date": {
+        "type": "date"
+      },
+      "modified": {
+        "type": "date"
+      },
+      "displaydate": {
+        "type": "date"
+      },
+      "displaymodified": {
+        "type": "date"
+      },
+      "spell": {
+        "type": "text",
+        "analyzer": "wpsolr_analyser_did_you_mean"
+      },
+      "autocomplete": {
+        "type": "completion",
+        "contexts": [
+          {
+            "name": "context_type",
+            "type": "category",
+            "path": "type"
+          },
+          {
+            "name": "context_blog_name",
+            "type": "category",
+            "path": "blog_name_str"
+          }
+        ]
+      },
+      "text": {
+        "type": "text",
+        "analyzer": "english_with_synonym"
+      }
+    }
+  }
+}

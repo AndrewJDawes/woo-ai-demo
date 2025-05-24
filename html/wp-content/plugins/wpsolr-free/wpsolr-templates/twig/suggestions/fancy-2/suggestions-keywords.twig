@@ -1,0 +1,30 @@
+{# *******************************************
+
+Build the suggestions keywords
+
+{{ dump(suggestions) }}
+
+******************************************** #}
+
+{# Fancy css #}
+{{ include ("suggestions/fancy-2/suggestions-css.twig") }}
+
+{# Custom css #}
+{{ include ("suggestions/suggestions-custom-css.twig", {css: suggestions.settings.css}, with_context = false) }}
+
+{# Example: show the custom header added to the template data #}
+{{ suggestions.settings.example_custom_header }}
+
+<div class="wpsolr_separator"></div>
+<ul class="wpsolr_suggestions">
+
+    {% for result in suggestions.results %}
+
+        <li>
+            <img src="./wp-content/plugins/wpsolr-pro-master/wpsolr-templates/twig/suggestions/fancy-2/images/magnifying-glass.svg">
+            <a class="keyword" href="{{ result.url }}" title="{{ result.keyword }}">{{ result.keyword }}</a>
+        </li>
+
+    {% endfor %}
+
+</ul>

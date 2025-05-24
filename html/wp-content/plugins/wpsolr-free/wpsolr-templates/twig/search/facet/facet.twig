@@ -1,0 +1,81 @@
+{# *************************************
+
+Build the generic facet
+
+{{ dump(facet) }}
+
+************************************** #}
+
+<ul
+        class="{{ facet.facet_class_uuid }} {{ facet.facet_layout_class }} {{ facet.facet_layout_skin_class }} {{ facet.facet_class_id }} {{ facet.facet_grid_class }}"
+        data-wpsolr-facet-type="{{ facet.facet_type }}"
+>
+
+    {% block facet_header %}
+        {# To be defined in child #}
+    {% endblock facet_header %}
+
+    {% block facet_items %}
+        {% for item in facet.items %}
+
+            {% block value_localized %}
+                {# {{ item.value_localized }} #}
+            {% endblock value_localized %}
+
+            {% block permalink %}
+                {# To be defined in child #}
+            {% endblock permalink %}
+
+            <li class='{{ item.shown? "" : "wpsolr_hide" }}'>
+                {% block item %}
+                    <div class='select_opt {{ item.selected? "checked" : "" }} {{ item.class_level }} {{ item.html_class }}'
+                         data-wpsolr-facet-data='{{ item.html_data|json_encode }}'
+                    >
+
+                        {% if item.permalink %}
+                            {# Link to the permalink home page #}
+                            <a class="wpsolr_permalink"
+                               href="{{ item.permalink.href }}"
+                                    {% if item.permalink.rel %}
+                                        rel="{{ item.permalink.rel }}"
+                                    {% endif %}
+                               title="{{ item.content }}">
+                                {{ block('item_inner') }}
+                            </a>
+
+                        {% else %}
+                            {# Link to the current page #}
+
+                            {% block item_inner %}
+                                {{ item.content }}
+                            {% endblock item_inner %}
+
+                        {% endif %}
+
+                    </div>
+                {% endblock item %}
+
+                {% if item.items %}
+                    {% block hierarchy %}
+                        {# To be defined in child #}
+                    {% endblock hierarchy %}
+                {% endif %}
+
+            </li>
+
+        {% endfor %}
+    {% endblock facet_items %}
+
+    {# "Show All" link #}
+    {% block facet_show_all_link %}
+        {% if facet.facet_size_shown and facet.items|length > facet.facet_size_shown %}
+            <a class="wpsolr-show-more" href="javascript:void(0)">{{ labels.facets_show_more }}</a>
+            <a class="wpsolr-show-less" href="javascript:void(0)">{{ labels.facets_show_less }}</a>
+        {% endif %}
+    {% endblock facet_show_all_link %}
+
+    {% block facet_footer %}
+        {# To be defined in child #}
+    {% endblock facet_footer %}
+
+</ul>

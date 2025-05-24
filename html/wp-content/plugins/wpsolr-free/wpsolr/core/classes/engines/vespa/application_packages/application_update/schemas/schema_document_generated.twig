@@ -1,0 +1,25 @@
+{#*******************************************
+
+Generated document
+
+{{ dump(data) }}
+
+********************************************#}
+document {{ data.label }}_generated {
+
+    {% for field in data.fields %}
+        field {{ field.label }} type {{ field.type }} {
+            indexing: {{ field.indexing }}
+        {% if field.index %}
+            index: {{ field.index }}
+        {% endif %}
+        {% if field.match %}
+            match {{ field.match }}
+        {% endif %}
+        {% if field.summary %}
+            summary: {{ field.summary }}
+        {% endif %}
+        }
+    {% endfor %}
+
+}

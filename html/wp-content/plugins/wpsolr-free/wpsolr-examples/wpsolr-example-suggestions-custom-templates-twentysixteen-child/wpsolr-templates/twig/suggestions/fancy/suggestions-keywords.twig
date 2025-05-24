@@ -1,0 +1,28 @@
+{#*******************************************
+
+Build the suggestions keywords
+
+{{ dump(suggestions) }}
+
+********************************************#}
+
+{# Fancy css #}
+{{ include ("suggestions/fancy/suggestions-css.twig") }}
+
+{# Custom css #}
+{{ include ("suggestions/suggestions-custom-css.twig", {css: suggestions.settings.css}, with_context = false) }}
+
+{# Example: show the custom header added to the template data #}
+{{ suggestions.settings.example_custom_header }}
+
+<ul class="wpsolr_suggestions c{{ suggestions.settings.suggestion_uuid }}">
+
+    {% for result in suggestions.results %}
+
+        <li>
+            <a class="keyword" href="{{ result.url }}" title="{{ result.keyword }}">{{ result.keyword }}</a>
+        </li>
+
+    {% endfor %}
+
+</ul>

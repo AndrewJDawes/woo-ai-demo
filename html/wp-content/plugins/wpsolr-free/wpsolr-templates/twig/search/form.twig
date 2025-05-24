@@ -1,0 +1,47 @@
+{#*************************************
+
+Build the search form
+
+{{ dump(search_form) }}
+
+**************************************#}
+
+<div class='cls_search' style='width:100%'>
+
+    <form action="{{ search_form.url }}" method='get' class='search-frm'>
+        <input type="hidden" value="{{ search_form.ajax_action_suggestions }}" id="path_to_fold">
+        <input type="hidden" value="{{ search_form.admin_url }}" id="path_to_admin">
+        <input type="hidden" value="{{ search_form.query_string }}" id="search_opt">
+        <input type="hidden" value="{{ search_form.paged }}" id="paginate">
+        <input type="hidden"
+               value="{{ search_form.is_after_autocomplete_block_submit }}"
+               id="is_after_autocomplete_block_submit"
+        >
+        {% if search_form.language %}
+            <input type="hidden" value="{{ search_form.language }}" name="lang">
+        {% endif %}
+
+        <div class="ui-widget">
+            <input type="hidden" id="ajax_nonce" value="{{ search_form.nonce }}">
+            <input type="text"
+                   placeholder="{{ search_form.placeholder }}"
+                   value="{{ search_form.query_string }}"
+                   name="search"
+                   id="search_que"
+                   class="{{ search_form.suggest_class }} sfl2"
+                   autocomplete="off"
+            />
+            <input type="submit"
+                   value="{{ search_form.button_label }}"
+                   id="searchsubmit"
+                   style="position:relative;width:auto"
+            >
+
+            <!-- Extra HTML -->
+            {{ search_form.append_html }}
+
+            <div style="clear:both"></div>
+        </div>
+    </form>
+
+</div>

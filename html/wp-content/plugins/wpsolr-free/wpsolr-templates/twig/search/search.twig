@@ -1,0 +1,74 @@
+{#*******************************************
+
+Build the Ajax search, with all its component:
+- the search form
+- the sort list
+- the facets
+- the results
+- the pagination
+
+{{ dump(search) }}
+
+********************************************#}
+
+{# Insert the search form #}
+{% block search_search_form %}
+    {{ include('form.twig', {search_form: search.search_form}, with_context = true) }}
+{% endblock %}
+
+{% if search.results.nb_results > 0 %}
+
+    <div class='cls_results'>
+        <div class="wdm_resultContainer">
+
+            {# Left column #}
+            <div class="wdm_list">
+
+                {# Insert the sort list #}
+                {% block search_sort %}
+                    {{ include('sort.twig', {sort: search.sort}, with_context = true) }}
+                {% endblock %}
+
+                {# Insert the facets #}
+                {% block search_facets %}
+                    {{ include('facets.twig', {facets: search.facets}, with_context = true) }}
+                {% endblock %}
+
+            </div>
+
+            {# Right column #}
+            <div class="wdm_results">
+
+                {# Did you mean #}
+                {% block search_did_you_mean %}
+                    {{ include('did-you-mean.twig', {did_you_mean_localized: search.results.did_you_mean_localized}, with_context = true) }}
+                {% endblock %}
+
+                {# Info showing nb results #}
+                {% block search_information %}
+                    {{ include('information.twig', {info_localized: search.results.info_localized}, with_context = true) }}
+                {% endblock %}
+
+                {# Icon showed while Ajax is running #}
+                {% block search_loading %}
+                    {{ include('loading.twig', {loading_image: search.results.loading_image}, with_context = true) }}
+                {% endblock %}
+
+                {# The results #}
+                {% block search_results %}
+                    {{ include('results.twig', {results: search.results}, with_context = true) }}
+                {% endblock %}
+
+                {# The pagination #}
+                {% block search_pagination %}
+                    {{ include('pagination.twig', {pages: search.results.pages}, with_context = true) }}
+                {% endblock search_pagination %}
+
+            </div>
+        </div>
+    </div>
+
+{% else %}
+    {# No results message #}
+    <span class='infor'>{{ search.results.no_results_localized }}</span>
+{% endif %}

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright Yahoo. Licensed under the terms of the Apache 2.0 license. See LICENSE in the project root. -->
+<services version="1.0">
+
+    <container id="wpsolr" version="1.0">
+        <document-api/>
+        <search/>
+        <nodes>
+            <node hostalias="node1"/>
+        </nodes>
+    </container>
+
+    <content id="wpsolr" version="1.0">
+        <redundancy>1</redundancy>
+        <documents>
+            <document type="wpsolr_none" mode="index"/>
+        </documents>
+        <tuning>
+            <resource-limits>
+                <!-- Default is 75% but this can be increased for Dockerized deployments -->
+                <!-- https://docs.vespa.ai/en/operations/feed-block.html -->
+                <disk>0.9</disk>
+            </resource-limits>
+        </tuning>
+        <nodes>
+            <node hostalias="node1" distribution-key="0"/>
+        </nodes>
+    </content>
+
+</services>

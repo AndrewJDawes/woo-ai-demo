@@ -1,0 +1,13 @@
+{#*******************************************
+
+Generated input fields
+
+{{ dump(data) }}
+
+********************************************#}
+
+field wpsolr_input_text type string {
+    indexing: {{ data | map((field_label) => "(input #{field_label} || \"\") ") | join(' . " " . ') }} | index
+    index: enable-bm25
+}
+

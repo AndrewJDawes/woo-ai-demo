@@ -1,0 +1,153 @@
+{#*******************************************
+
+Fancy base css
+
+********************************************#}
+
+{# Fancy css #}
+{{ include ("suggestions/fancy/suggestions-css.twig") }}
+
+<style>
+
+    .wpsolr_suggestions.c{{ suggestions.settings.suggestion_uuid }} {
+        padding: 0 !important;
+        margin: 0 !important;
+        border: 1px solid #000 !important;
+        border-radius: 3px !important;
+        list-style: none !important;
+        width: 100% !important;
+        max-width: 800px !important;
+        xdisplay: inline-block !important;
+    <!-- prevents closing when losing focus -->
+    }
+
+    .wpsolr_suggestions.c{{ suggestions.settings.suggestion_uuid }} .flex {
+        display: flex !important;
+        flex-wrap: wrap !important;
+    }
+
+    .wpsolr_suggestions.c{{ suggestions.settings.suggestion_uuid }} li {
+        padding: 12px !important;
+    }
+
+    .wpsolr_suggestions.c{{ suggestions.settings.suggestion_uuid }} li img {
+        xmargin-left: 15px !important;
+    }
+
+    .wpsolr_suggestions.c{{ suggestions.settings.suggestion_uuid }} li a {
+        color: #222 !important;
+        padding: 0 !important;
+    }
+
+    .wpsolr_suggestions.c{{ suggestions.settings.suggestion_uuid }} li a:hover {
+        background: transparent !important;
+    }
+
+    .wpsolr_suggestions.c{{ suggestions.settings.suggestion_uuid }} b {
+        padding: 0 4px !important;
+    }
+
+    .wpsolr_suggestions.c{{ suggestions.settings.suggestion_uuid }} .result-text {
+        margin-top: 12px !important;
+        margin-left: 15px !important;
+        flex: 1 1 auto !important;
+        position: relative !important;
+    }
+
+    .wpsolr_suggestions.c{{ suggestions.settings.suggestion_uuid }} p.title {
+        font-weight: 600 !important;
+        margin: 0 0 3px !important;
+        display: inline-block !important;
+    }
+
+    .wpsolr_suggestions.c{{ suggestions.settings.suggestion_uuid }} .category {
+        width: 90% !important;
+    }
+
+    .wpsolr_suggestions.c{{ suggestions.settings.suggestion_uuid }} .category, .c{{ suggestions.settings.suggestion_uuid }} .category a {
+        color: #a2a2a2 !important;
+        font-style: italic !important;
+        margin: 0 !important;
+        position: absolute !important;
+        top: 0 !important;
+        right: 0 !important;
+    }
+
+    .wpsolr_suggestions.c{{ suggestions.settings.suggestion_uuid }} .category a {
+        margin-right: 25px !important;
+    }
+
+    .wpsolr_suggestions.c{{ suggestions.settings.suggestion_uuid }} .category a:hover {
+        color: #000 !important;
+    }
+
+    .wpsolr_suggestions.c{{ suggestions.settings.suggestion_uuid }} p.subhead {
+        margin: 0 0 5px !important;
+    }
+
+    .wpsolr_suggestions.c{{ suggestions.settings.suggestion_uuid }} p.desc {
+        color: #777 !important;
+        margin: 0 !important;
+    }
+
+    @media (max-width: 480px) {
+
+        .wpsolr_suggestions.c{{ suggestions.settings.suggestion_uuid }} .category, .c{{ suggestions.settings.suggestion_uuid }} .category a {
+            position: relative !important;
+            top: auto !important;
+            right: auto !important;
+        }
+
+        .wpsolr_suggestions.c{{ suggestions.settings.suggestion_uuid }} li img {
+            margin-left: 0 !important;
+        }
+
+        .wpsolr_suggestions.c{{ suggestions.settings.suggestion_uuid }} .result-text {
+            margin-left: 10px !important;
+            margin-right: 10px !important;
+        }
+
+        .wpsolr_suggestions.c{{ suggestions.settings.suggestion_uuid }} .result-image {
+            width: 14% !important;
+        }
+
+        .wpsolr_suggestions.c{{ suggestions.settings.suggestion_uuid }} .result-image img {
+            margin-top: 5px !important;
+            max-width: 100% !important;
+        }
+
+        .wpsolr_suggestions.c{{ suggestions.settings.suggestion_uuid }} .result-text {
+            margin-left: 4% !important;
+            margin-right: 4% !important;
+            width: 78% !important;
+        }
+
+    }
+
+
+    .wpsolr_suggestions.c{{ suggestions.settings.suggestion_uuid }} li {
+        border: 0 !important;
+    }
+
+    .wpsolr_suggestions.c{{ suggestions.settings.suggestion_uuid }} h4 {
+        font-weight: bold !important;
+        font-size: 15px !important;
+        border-top: 1px solid #ededed !important;
+        padding-top: 30px !important;
+        margin: 10px 0 0 30px !important;
+    }
+
+    .wpsolr_suggestions.c{{ suggestions.settings.suggestion_uuid }} h4:first-of-type {
+        padding-top: 10px !important;
+        border: 0 !important;
+    }
+
+    @media (max-width: 480px) {
+
+        .wpsolr_suggestions.c{{ suggestions.settings.suggestion_uuid }} h4 {
+            margin: 10px 15px 3px !important;
+        }
+
+    }
+
+</style>

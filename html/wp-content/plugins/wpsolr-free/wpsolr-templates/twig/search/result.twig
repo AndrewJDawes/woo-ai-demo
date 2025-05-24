@@ -1,0 +1,88 @@
+{#*******************************************
+
+Build one row of results
+
+{{ dump(result) }}
+
+********************************************#}
+
+<div id="res{{ result.id }}">
+
+    {# Title link #}
+    {% block result_title %}
+        <div class="p_title">
+            <a href="{{ result.title.href }}">{{ result.title.title }}</a>
+        </div>
+    {% endblock %}
+
+    {# Thumbnail inserted in content #}
+    {% block result_content %}
+        <div class='p_content'>
+            {% if result.image_src %}
+                <img class="wdm_result_list_thumb" src="{{ result.image_src }}"/>
+            {% endif %}
+            {{ result.content }}
+        </div>
+    {% endblock %}
+
+    {# Comments #}
+    {% block result_comment %}
+        {% if result.comment %}
+            <div class='p_comment'>
+                {{ result.comment.text }}
+                <a href="{{ result.comment.href }}">
+                    {{ result.comment.title }}
+                </a>
+            </div>
+        {% endif %}
+    {% endblock %}
+
+    {# Groups plugin - Bottom right #}
+    {% block result_groups %}
+        {% if result.groups %}
+            <div class='p_misc'>{{ result.groups }}</div>
+            <br/>
+        {% endif %}
+    {% endblock %}
+
+    {# Custom HTML block #}
+    {% block result_custom_html_after %}
+        {% if result.custom_html %}
+            {{ result.custom_html }}
+        {% endif %}
+    {% endblock %}
+
+    {# Meta information #}
+    {% block result_metas %}
+        {% if result.meta_information %}
+            <div class='p_misc'>
+
+                {% block result_metas_author %}
+                    {% if result.meta_information.author %}
+                        <span class='pauthor'>{{ result.meta_information.author }}</span>
+                    {% endif %}
+                {% endblock %}
+
+                {% block result_metas_category %}
+                    {% if result.meta_information.category %}
+                        <span class='pcat'>{{ result.meta_information.category }}</span>
+                    {% endif %}
+                {% endblock %}
+
+                {% block result_metas_date %}
+                    {% if result.meta_information.date %}
+                        <span class='pdate'>{{ result.meta_information.date }}</span>
+                    {% endif %}
+                {% endblock %}
+
+                {% block result_metas_comments_number %}
+                    {% if result.meta_information.comments_number %}
+                        <span class='pcat'>{{ result.meta_information.comments_number }}</span>
+                    {% endif %}
+                {% endblock %}
+
+            </div>
+        {% endif %}
+    {% endblock %}
+
+</div>

@@ -1,0 +1,27 @@
+{
+  "require": {
+    "php": "^8.1",
+    "solarium/solarium": ">= 6.1.5",
+    "timber/timber": ">= 1.9.0",
+    "elasticsearch/elasticsearch": "> 8.0",
+    "gmostafa/php-graphql-client": "^1.13",
+    "symfony/event-dispatcher": ">=5.3.7",
+    "opensearch-project/opensearch-php": ">1.0",
+    "jumbojett/openid-connect-php": "^0.9.5",
+    "ext-simplexml": "*",
+    "ext-dom": "*",
+    "monolog/monolog": "^2.9"
+  },
+  "replace": {
+    "rmccue/requests": "*"
+  },
+  "config": {
+    "allow-plugins": {
+      "composer/installers": false,
+      "php-http/discovery": true
+    },
+    "platform": {
+      "php": "8.1"
+    }
+  }
+}

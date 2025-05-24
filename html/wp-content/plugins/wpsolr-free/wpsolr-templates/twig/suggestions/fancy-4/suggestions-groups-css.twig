@@ -1,0 +1,128 @@
+{#*******************************************
+
+Fancy base css
+
+********************************************#}
+
+{# Fancy css #}
+{{ include ("suggestions/fancy-4/suggestions-css.twig") }}
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700,800" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+<style>
+    .wpsolr_suggestions_fancy_4_body {
+        padding: 0;
+        /*display: flex;*/
+        /*gap: 20px;*/
+        font-family: "Roboto", "Open Sans", "Arial", sans-serif;
+        background: white;
+    }
+
+    .wpsolr_suggestions {
+        list-style: none;
+        /*overflow: auto;*/
+    }
+
+    .wpsolr_suggestions .flex {
+        display: flex;
+        max-height: 200px;
+        border-top: 1px solid #e5e5e5;
+    }
+
+    .wpsolr_suggestions .title {
+        font-size: 14px;
+        line-height: 15px;
+        font-weight: 600;
+        letter-spacing: normal;
+        text-align: left;
+    }
+
+    .wpsolr_suggestions .title a {
+        color: #111111;
+        text-decoration: none;
+    }
+
+    .wpsolr_suggestions div.result-image {
+        text-align: center;
+        flex: 1;
+        margin-top: 5%;
+    }
+
+    .wpsolr_suggestions img {
+        border-radius: 20px;
+    }
+
+    .wpsolr_suggestions .result-text {
+        flex: 3;
+        width: 100%;
+        margin: 5px 0px 5px 0px;
+    }
+
+
+    .wpsolr_suggestions div.subhead {
+        width: 100%;
+        display: block;
+        text-decoration: none!important;
+        font-weight: 400;
+        font-size: 16px;
+        color: #1c1c1c;
+    }
+
+    .wpsolr_suggestions p:empty {
+        margin: 0px;
+        padding: 0px;
+        width: 0px;
+        height: 0px;
+    }
+
+    .wpsolr_suggestions p:not(:empty) {
+        margin: 0px 0px 5px 0px;
+    }
+
+    .wpsolr_suggestions .subhead {
+        display: flex;
+    }
+
+    .wpsolr_suggestions .subhead del {
+        /* max-width: 50px; */
+        background-color: #cc0c39;
+        padding: 0px 5px 0px 5px;
+        color: white;
+        font-weight: 600;
+    }
+
+    .wpsolr_suggestions .subhead ins {
+        text-decoration: none;
+    }
+
+    .wpsolr_suggestions .subhead p{
+        flex: 1;
+    }
+
+    .wpsolr_suggestions .subhead .add_to_cart_button {
+        align-items: center;
+        height: 20px;
+        justify-content: center;
+        min-width: 30px;
+        font-size: 10px;
+        margin: 0;
+    }
+
+    .wpsolr_suggestions p.desc {
+        margin: 0px 0px 0px 0px;
+        font-size: 14px;
+        line-height: 20px;
+        color: #1c1c1c;
+    }
+
+    .wpsolr_suggestions .result-text .title-wrap p {
+        font-size: 14px;
+        line-height: 20px;
+    }
+
+    @media (max-width: 480px) {
+        .wpsolr_suggestions .grid-sizer, .wpsolr_suggestions .flex {
+            width: 50%;
+        }
+    }
+</style>

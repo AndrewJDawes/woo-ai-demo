@@ -1,0 +1,131 @@
+{
+  "wpsolr_setup_wizard_is_skipped": "1",
+  "wdm_solr_form_data": {
+    "p_excerpt": "1",
+    "p_custom_fields": "1",
+    "is_shortcode_expanded": "1",
+    "p_types": "post,page,product",
+    "taxonomies": "category_str,post_tag_str,product_cat_str,product_tag_str",
+    "cust_fields": {
+      "post": {
+        "_edit_last_str": "1"
+      },
+      "page": {
+        "_edit_last_str": "1"
+      },
+      "product": {
+        "_edit_last_str": "1",
+        "_price_str": "1",
+        "_stock_str": "1",
+        "_wc_average_rating_str": "1",
+        "_wc_review_count_str": "1"
+      }
+    },
+    "custom_field_properties": {
+      "_edit_last_str": {
+        "solr_dynamic_type": "_dt",
+        "conversion_error_action": "conversion_error_action_ignore_field",
+        "relation": ""
+      },
+      "_price_str": {
+        "solr_dynamic_type": "_s",
+        "conversion_error_action": "conversion_error_action_ignore_field",
+        "relation": ""
+      },
+      "_stock_str": {
+        "solr_dynamic_type": "_i",
+        "conversion_error_action": "conversion_error_action_ignore_field",
+        "relation": ""
+      },
+      "_wc_average_rating_str": {
+        "solr_dynamic_type": "_f",
+        "conversion_error_action": "conversion_error_action_ignore_field",
+        "relation": ""
+      },
+      "_wc_review_count_str": {
+        "solr_dynamic_type": "_i",
+        "conversion_error_action": "conversion_error_action_ignore_field",
+        "relation": ""
+      }
+    },
+    "comments": "1",
+    "exclude_ids": "",
+    "exclude_search_ids": ""
+  },
+  "wdm_solr_res_data": {
+    "default_solr_index_for_search": "WPSOLR_REPLACE_SETTINGS_TEMPLATE_INDEX_UUID",
+    "search_reranking_type": "",
+    "option_search_log_query_mode": "",
+    "search_method": "use_current_theme_search_template_with_ajax",
+    "ajax-search-slug": "",
+    "no_res": "20",
+    "no_fac": "20",
+    "highlighting_fragsize": "100"
+  },
+  "wdm_solr_recommendations_data": {
+    "recommendations": {
+      "WPSOLR_REPLACE_SETTINGS_TEMPLATE_RECOMMENDATION_UUID": {
+        "is_active": "is_active",
+        "label": "Related posts",
+        "jquery": "",
+        "is_not_same_object": "is_active",
+        "is_same_object_type": "is_active",
+        "type": "more_like_this",
+        "layout_id": "wpsolr_more_like_this_content_fancy1_free",
+        "nb": "10",
+        "image_size": "thumbnail",
+        "image_width_pct": "100",
+        "css": "<!-- <style> .cWPSOLR_REPLACE_SETTINGS_TEMPLATE_RECOMMENDATION_UUID li a {color: red;} <\/style> -->",
+        "order_by": "max",
+        "models": {
+          "post": {
+            "id": "y",
+            "model_label": "",
+            "model_nb": "10"
+          },
+          "page": {
+            "id": "y",
+            "model_label": "",
+            "model_nb": "10"
+          },
+          "product": {
+            "id": "y",
+            "model_label": "",
+            "model_nb": "10"
+          }
+        },
+        "custom_file": ""
+      }
+    }
+  },
+  "wdm_solr_suggestions_data": {
+    "suggestions": {
+      "52847715624AB4DD449B8F0C5B90596F": {
+        "is_active": "is_active",
+        "label": "Default Ajax search",
+        "jquery": "input[type=\"search\"]",
+        "jquery_autocomplete_options": "",
+        "type": "suggest_content_type_keywords",
+        "redirection_pattern": "",
+        "layout_id": "layout_id_keywords_fancy",
+        "nb": "10",
+        "css": "<!-- <style> .c52847715624AB4DD449B8F0C5B90596F li a {color: red;} <\/style> -->"
+      }
+    }
+  },
+  "wdm_solr_facet_data": {
+    "facets_orientation": "facets_orientation_vertical",
+    "facets": "categories,tags,product_cat_str,product_tag_str"
+  },
+  "wdm_solr_sortby_data": {
+    "sort_default": "sort_by_relevancy_desc",
+    "sort_default_second": "",
+    "sort": "sort_by_relevancy_desc,sort_by_date_desc,sort_by_title_s_asc,sort_by_title_s_desc",
+    "sort_labels": {
+      "sort_by_relevancy_desc": "",
+      "sort_by_date_desc": "",
+      "sort_by_title_s_asc": "",
+      "sort_by_title_s_desc": ""
+    }
+  }
+}

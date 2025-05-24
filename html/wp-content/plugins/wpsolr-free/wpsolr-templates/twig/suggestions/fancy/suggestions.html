@@ -1,0 +1,379 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <!--[if !mso]><!-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <!--<![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700,800" rel="stylesheet">
+
+    <style>
+
+        body {
+            font-family: 'open sans';
+            font-size: 13px;
+        }
+
+        /* simple search results & base css */
+        ul.search {
+            padding: 0;
+            margin: 0;
+            border: 1px solid #000;
+            border-radius: 3px;
+            list-style: none;
+            min-width: 250px;
+            display: inline-block;
+        }
+
+        ul.search li {
+            border-top: 1px solid #ededed;
+            list-style: none;
+        }
+
+        ul.search li a {
+            color: #333;
+            text-decoration: none;
+            padding: 11px 15px;
+            display: block;
+            transition: all 75ms ease-in;
+        }
+
+        ul.search li a:hover {
+            background: #f3f3f3;
+        }
+
+        ul.search li:first-child {
+            border-top: 0;
+        }
+
+        .highlight {
+            background: #fff088;
+            padding: 0 1px;
+            border-radius: 2px;
+            display: inline-block;
+        }
+
+
+        /* content search results */
+        ul.search.search-content {
+            padding: 0;
+            margin: 0;
+            border: 1px solid #000;
+            border-radius: 3px;
+            list-style: none;
+            width: 100%;
+            max-width: 800px;
+            display: inline-block;
+        }
+
+        ul.search .flex {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        ul.search-content li {
+            padding: 12px;
+        }
+
+        ul.search-content li img {
+            margin-left: 15px;
+        }
+
+        ul.search-content li a {
+            color: #222;
+            padding: 0;
+        }
+
+        ul.search.search-content li a:hover {
+            background: transparent;
+        }
+
+        .search-content .highlight {
+            padding: 0 4px;
+        }
+
+        .search-content .result-text {
+            margin-top: 12px;
+            margin-left: 15px;
+            flex: 1 1 auto;
+            position: relative;
+        }
+
+        p.title {
+            font-weight: 600;
+            margin: 0 0 3px;
+            display: inline-block;
+        }
+
+        ul.search .category {
+            width: 90%;
+        }
+
+        ul.search .category, ul.search .category a {
+            color: #a2a2a2;
+            font-style: italic;
+            margin: 0;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+
+        ul.search .category a {
+            margin-right: 25px;
+        }
+
+        ul.search .category a:hover {
+            color: #000;
+        }
+
+        p.subhead {
+            margin: 0 0 5px;
+        }
+
+        p.desc {
+            color: #777;
+            margin: 0;
+        }
+
+        @media (max-width: 480px) {
+
+            ul.search .category, ul.search .category a {
+                position: relative;
+                top: auto;
+                right: auto;
+            }
+
+            ul.search-content li img {
+                margin-left: 0;
+            }
+
+            .search-content .result-text {
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+
+            .result-image {
+                width: 14%;
+            }
+
+            .result-image img {
+                margin-top: 5px;
+                max-width: 100%;
+            }
+
+            .search-content .result-text {
+                margin-left: 4%;
+                margin-right: 4%;
+                width: 78%;
+            }
+
+        }
+
+
+        ul.search-content-grouped li {
+            border: 0;
+        }
+
+        ul.search-content-grouped h4 {
+            font-size: 15px;
+            border-top: 1px solid #ededed;
+            padding-top: 30px;
+            margin: 10px 0 0 30px;
+        }
+
+        ul.search-content-grouped h4:first-of-type {
+            padding-top: 10px;
+            border: 0;
+        }
+
+        @media (max-width: 480px) {
+
+            ul.search-content-grouped h4 {
+                margin: 10px 15px 3px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<ul class="search">
+
+    <li><a href="" title="">b<span class="highlight">est</span></a></li>
+    <li><a href="" title=""><span class="highlight">est</span>imate</a></li>
+    <li><a href="" title="">fin<span class="highlight">est</span></a></li>
+    <li><a href="" title="">ret<span class="highlight">est</span>ed</a></li>
+
+</ul>
+
+<br><br><br>
+
+<ul class="search search-content">
+    <li>
+        <div class="flex">
+            <div class="result-image">
+                <a href="" title=""><img src="https://sharpdesign.io/work/search-styles/bag.jpg" alt=""></a>
+            </div>
+            <div class="result-text">
+                <div class="title-wrap">
+                    <p class="title"><a href="" title=""><span class="highlight">Blue</span> Bag</a></p>
+                    <p class="category"><a href="" title="">Shoes & Bags</a></p></div>
+                <p class="subhead">Price: $10.00 - $15.00</p>
+                <p class="desc">A description about this item.</p></a>
+            </div>
+        </div>
+    </li>
+
+    <li>
+        <div class="flex">
+            <div class="result-image">
+                <a href="" title=""><img src="https://sharpdesign.io/work/search-styles/bag.jpg" alt=""></a>
+            </div>
+            <div class="result-text">
+                <div class="title-wrap">
+                    <p class="title"><a href="" title=""><span class="highlight">Blue</span> Bag</a></p>
+                    <p class="category"><a href="" title="">Shoes & Bags</a></p></div>
+                <p class="subhead">Price: $10.00 - $15.00</p>
+                <p class="desc">A description about this item.</p></a>
+            </div>
+        </div>
+    </li>
+
+    <li>
+        <div class="flex">
+            <div class="result-image">
+                <a href="" title=""><img src="https://sharpdesign.io/work/search-styles/bag.jpg" alt=""></a>
+            </div>
+            <div class="result-text">
+                <div class="title-wrap">
+                    <p class="title"><a href="" title=""><span class="highlight">Blue</span> Bag</a></p>
+                    <p class="category"><a href="" title="">Shoes & Bags</a></p></div>
+                <p class="subhead">Price: $10.00 - $15.00</p>
+                <p class="desc">A description about this item.</p></a>
+            </div>
+        </div>
+    </li>
+
+    <li>
+        <div class="flex">
+            <div class="result-image">
+                <a href="" title=""><img src="https://sharpdesign.io/work/search-styles/bag.jpg" alt=""></a>
+            </div>
+            <div class="result-text">
+                <div class="title-wrap">
+                    <p class="title"><a href="" title=""><span class="highlight">Blue</span> Bag</a></p>
+                    <p class="category"><a href="" title="">Shoes & Bags</a></p></div>
+                <p class="subhead">Price: $10.00 - $15.00</p>
+                <p class="desc">A description about this item.</p></a>
+            </div>
+        </div>
+    </li>
+
+</ul>
+
+<br><br><br>
+
+<ul class="search search-content search-content-grouped">
+    <h4>Accessories</h4>
+    <li>
+        <div class="flex">
+            <div class="result-image">
+                <a href="" title=""><img src="https://sharpdesign.io/work/search-styles/bag.jpg" alt=""></a>
+            </div>
+            <div class="result-text">
+                <div class="title-wrap">
+                    <p class="title"><a href="" title=""><span class="highlight">Blue</span> Bag</a></p>
+                    <p class="category"><a href="" title="">Shoes & Bags</a></p></div>
+                <p class="subhead">Price: $10.00 - $15.00</p>
+                <p class="desc">A description about this item.</p></a>
+            </div>
+        </div>
+    </li>
+
+    <li>
+        <div class="flex">
+            <div class="result-image">
+                <a href="" title=""><img src="https://sharpdesign.io/work/search-styles/bag.jpg" alt=""></a>
+            </div>
+            <div class="result-text">
+                <div class="title-wrap">
+                    <p class="title"><a href="" title=""><span class="highlight">Blue</span> Bag</a></p>
+                    <p class="category"><a href="" title="">Shoes & Bags</a></p></div>
+                <p class="subhead">Price: $10.00 - $15.00</p>
+                <p class="desc">A description about this item.</p></a>
+            </div>
+        </div>
+    </li>
+
+    <li>
+        <div class="flex">
+            <div class="result-image">
+                <a href="" title=""><img src="https://sharpdesign.io/work/search-styles/bag.jpg" alt=""></a>
+            </div>
+            <div class="result-text">
+                <div class="title-wrap">
+                    <p class="title"><a href="" title=""><span class="highlight">Blue</span> Bag</a></p>
+                    <p class="category"><a href="" title="">Shoes & Bags</a></p></div>
+                <p class="subhead">Price: $10.00 - $15.00</p>
+                <p class="desc">A description about this item.</p></a>
+            </div>
+        </div>
+    </li>
+
+    <h4>Clothing</h4>
+    <li>
+        <div class="flex">
+            <div class="result-image">
+                <a href="" title=""><img src="https://sharpdesign.io/work/search-styles/bag.jpg" alt=""></a>
+            </div>
+            <div class="result-text">
+                <div class="title-wrap">
+                    <p class="title"><a href="" title=""><span class="highlight">Blue</span> Bag</a></p>
+                    <p class="category"><a href="" title="">Shoes & Bags</a></p></div>
+                <p class="subhead">Price: $10.00 - $15.00</p>
+                <p class="desc">A description about this item.</p></a>
+            </div>
+        </div>
+    </li>
+
+    <h4>Sale</h4>
+    <li>
+        <div class="flex">
+            <div class="result-image">
+                <a href="" title=""><img src="https://sharpdesign.io/work/search-styles/bag.jpg" alt=""></a>
+            </div>
+            <div class="result-text">
+                <div class="title-wrap">
+                    <p class="title"><a href="" title=""><span class="highlight">Blue</span> Bag</a></p>
+                    <p class="category"><a href="" title="">Shoes & Bags</a></p></div>
+                <p class="subhead">Price: $10.00 - $15.00</p>
+                <p class="desc">A description about this item.</p></a>
+            </div>
+        </div>
+    </li>
+
+    <li>
+        <div class="flex">
+            <div class="result-image">
+                <a href="" title=""><img src="https://sharpdesign.io/work/search-styles/bag.jpg" alt=""></a>
+            </div>
+            <div class="result-text">
+                <div class="title-wrap">
+                    <p class="title"><a href="" title=""><span class="highlight">Blue</span> Bag</a></p>
+                    <p class="category"><a href="" title="">Shoes & Bags</a></p></div>
+                <p class="subhead">Price: $10.00 - $15.00</p>
+                <p class="desc">A description about this item.</p></a>
+            </div>
+        </div>
+    </li>
+
+</ul>
+
+</body>
+</html>

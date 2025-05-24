@@ -1,0 +1,24 @@
+{#*******************************************
+
+Build the Ajax pagination
+
+{{ dump(pages) }}
+
+********************************************#}
+
+{% if ( pages.nb_pages_in_results > 1 ) %}
+    <div class='paginate_div'>
+        <ul id="pagination-flickr" class="wdm_ul">
+            {% set nb_pages_in_results = pages.nb_pages_in_results -1 %}
+            {% for page in 0..nb_pages_in_results %}
+                <li>
+                    <a class="paginate {{ (page == pages.current_page) ? 'active' : '' }}"
+                       href="javascript:void(0)"
+                       id="{{ page+1 }}">
+                        {{ page+1 }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}

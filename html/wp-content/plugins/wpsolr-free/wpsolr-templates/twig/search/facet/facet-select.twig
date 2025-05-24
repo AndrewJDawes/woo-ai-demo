@@ -1,0 +1,35 @@
+{# *************************************
+
+Build the select box
+
+{{ dump(data) }}
+
+************************************** #}
+
+{% extends "facet/facet.twig" %}
+
+{% block facet_header %}
+<select
+        class={{ facet.facet_is_multiple ? "wpsolr-select-multiple" : "wpsolr-select" }}
+        {{ facet.facet_size ? "size='%s'"|format(facet.facet_size) : "" }}
+        {{ facet.facet_is_multiple ? "multiple" : "" }}
+        data-placeholder='{{ facet.facet_placeholder }}'
+>
+    {% endblock facet_header %}
+
+    {% block item %}
+        <option class='select_opt wpsolr_facet_option {{ item.selected? "checked" : "" }} {{ item.class_level }} {{ item.html_class }}'
+                value="{{ facet.id }}:{{ item.escaped_value }}"
+                data-wpsolr-facet-data='{{ item.html_data|json_encode }}'
+                {{ item.selected? "selected" : "" }}
+        >{{ item.content }}</option>
+    {% endblock item %}
+
+    {% block hierarchy %}
+        {{ include("facet/facet-select-hierarchy.twig", {facet: item}, with_context = false) }}
+    {% endblock hierarchy %}
+
+
+    {% block facet_footer %}
+</select>
+{% endblock facet_footer %}

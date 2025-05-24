@@ -1,0 +1,55 @@
+{# *******************************************
+
+Build the recommendations results
+
+{{ dump(recommendations) }}
+
+******************************************** #}
+
+{# Fancy css #}
+{{ include ("recommendations/content_fancy0_free/recommendations-css.twig") }}
+
+{% if recommendations.settings.image_width_pct > 0 %}
+    <style>
+        .c{{ recommendations.settings.recommendation_uuid }} .result-image a img {
+            width: {{ recommendations.settings.image_width_pct }}%;
+        }
+    </style>
+{% endif %}
+
+{# Custom css #}
+{{ include ("recommendations/recommendations-custom-css.twig", {css: recommendations.settings.css}, with_context = false) }}
+
+{# Example: show the custom header added to the template data #}
+{{ recommendations.settings.example_custom_header }}
+
+<ul class="wpsolr_recommendations c{{ recommendations.settings.recommendation_uuid }}">
+
+    {% for result in recommendations.results %}
+
+        <li>
+            <div class="flex">
+                <div class="result-text">
+                    {% if result.image_src and recommendations.settings.image_width_pct > 0 %}
+                        <div class="result-image">
+                            <a href="{{ result.title.href }}" title="{{ result.title.title }}">
+                                <img src="{{ result.image_src }}" alt="{{ result.title.title }}">
+                            </a>
+                        </div>
+                    {% endif %}
+                    {# Other information, like price, added by WPSOLR extensiàon or custom code #}
+                    {% for subtitle in result.subtitles %}
+                        <p class="subhead">{{ subtitle }}</p>
+                    {% endfor %}
+                    <div class="title-wrap">
+                        <p class="wpsolr-result-title"><a href="{{ result.title.href }}"
+                                            title="{{ result.title.title }}">{{ result.title.title }}</a></p>
+                        {# <p class="category"><a href="" title="">Shoes & Bags</a></p> #}
+                    </div>
+                </div>
+            </div>
+        </li>
+
+    {% endfor %}
+
+</ul>

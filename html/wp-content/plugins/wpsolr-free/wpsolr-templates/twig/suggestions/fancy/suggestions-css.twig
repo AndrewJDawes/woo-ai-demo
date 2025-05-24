@@ -1,0 +1,57 @@
+{#*******************************************
+
+Fancy groups css
+
+********************************************#}
+
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700,800" rel="stylesheet">
+
+<style>
+
+    .wpsolr_suggestions.c{{ suggestions.settings.suggestion_uuid }} {
+        font-family: 'open sans' !important;
+        font-size: 13px !important;
+        background-color: white;
+    }
+
+    .wpsolr_suggestions.c{{ suggestions.settings.suggestion_uuid }} {
+        padding: 0 !important;
+        margin: 0 !important;
+        border: 1px solid #000 !important;
+        border-radius: 3px !important;
+        list-style: none !important;
+        min-width: 250px !important;
+        xdisplay: inline-block !important;
+    <!-- prevents closing when losing focus -->
+    }
+
+    .wpsolr_suggestions.c{{ suggestions.settings.suggestion_uuid }} li {
+        border-top: 1px solid #ededed !important;
+        list-style: none !important;
+    }
+
+    .wpsolr_suggestions.c{{ suggestions.settings.suggestion_uuid }} li a {
+        color: #333 !important;
+        text-decoration: none !important;
+        padding: 11px 15px !important;
+        display: block !important;
+        transition: all 75ms ease-in !important;
+        font-weight: inherit !important;
+    }
+
+    .wpsolr_suggestions.c{{ suggestions.settings.suggestion_uuid }} li a:hover {
+        background: #f3f3f3 !important;
+    }
+
+    .wpsolr_suggestions.c{{ suggestions.settings.suggestion_uuid }} li:first-child {
+        border-top: 0 !important;
+    }
+
+    .wpsolr_suggestions.c{{ suggestions.settings.suggestion_uuid }} b {
+        background: #fff088 !important;
+        padding: 0 1px !important;
+        border-radius: 2px !important;
+        display: inline-block !important;
+    }
+
+</style>

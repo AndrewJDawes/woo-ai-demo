@@ -1,0 +1,14 @@
+{#*******************************************
+
+Build rows of results for infiniscroll Ajax
+
+{{ dump(search.results) }}
+
+********************************************#}
+
+{% if search.results.items %}
+    {% for result in search.results.items %}
+        {{ include('result.twig', {result: result}, with_context = true) }}
+        <hr>
+    {% endfor %}
+{% endif %}

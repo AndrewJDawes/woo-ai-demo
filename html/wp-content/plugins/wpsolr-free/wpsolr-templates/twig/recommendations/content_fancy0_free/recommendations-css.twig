@@ -1,0 +1,47 @@
+{#*******************************************
+
+Fancy groups css
+
+********************************************#}
+
+<style>
+
+    .wpsolr_recommendations.c{{ recommendations.settings.recommendation_uuid }} {
+        list-style: none;
+        float: left;
+        margin: 0!important;
+        padding: 0!important;
+    }
+
+
+    .wpsolr_recommendations.c{{ recommendations.settings.recommendation_uuid }} li {
+        vertical-align: bottom;
+        list-style-type: none!important;
+        float: left!important;
+        overflow: hidden!important;
+        position: relative;
+        text-align: center;
+        margin-bottom: 20px;
+        width: 250px!important;
+        height: 250px!important;
+    }
+
+    .wpsolr_recommendations.c{{ recommendations.settings.recommendation_uuid }} .result-image {
+        text-align: center;
+    }
+
+    .wpsolr_recommendations.c{{ recommendations.settings.recommendation_uuid }} .result-image img {
+        max-height: 100px;
+        object-fit: contain;
+    }
+
+    .wpsolr_recommendations.c{{ recommendations.settings.recommendation_uuid }} .title-wrap .wpsolr-result-title {
+        text-decoration: underline;
+    }
+
+    .wpsolr_recommendations.c{{ recommendations.settings.recommendation_uuid }} p {
+        padding: 0!important;
+        margin: 0!important;
+    }
+
+</style>

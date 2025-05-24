@@ -1,0 +1,12 @@
+{# *******************************************
+
+Build validation override to be able to remove a schema
+
+{{ dump(data) }}
+
+******************************************** #}
+<validation-overrides>
+    {% for validation in data %}
+        <allow until="{{ validation.until }}">{{ validation.validation_id }}</allow>
+    {% endfor %}
+</validation-overrides>

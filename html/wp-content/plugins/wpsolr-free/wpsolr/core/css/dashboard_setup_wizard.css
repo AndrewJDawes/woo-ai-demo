@@ -1,0 +1,50 @@
+.wpsolr_wizard_main {
+    margin: 20px 0 20px 0;
+    text-align: center;
+    font-size: 2em;
+    line-height: 1.5em;
+}
+
+.wpsolr_wizard_description {
+    margin: 0 auto;
+    padding: 20px 0 30px 0;
+    font-size: 1em;
+    max-width: 800px;
+    text-align: left;
+}
+
+
+.wpsolr_wizard_description select {
+    font-size: 0.9em;
+    border-radius: 7px;
+    box-sizing: border-box;
+}
+
+.wpsolr_wizard_description ul {
+    list-style-type: circle;
+}
+
+.wpsolr_setup_wizard_btn {
+    margin-top: 1em !important;
+    font-size: 0.8em !important;
+}
+
+.wpsolr_wizard_header, .wpsolr_wizard_footer {
+    padding: 2em;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+.wpsolr_setup_wizard_form_field {
+    height: 40px;
+    border-color: #bbb;
+    border-radius: 2px;
+    border-width: 1px;
+    font-size: 13px;
+    min-width: 300px;
+}
+
+.wpsolr-error-message {
+    display: none;
+    color: red;
+}
