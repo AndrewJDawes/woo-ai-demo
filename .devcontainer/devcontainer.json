@@ -15,7 +15,14 @@
 		"vscode": {
 			"extensions": [
 				"esbenp.prettier-vscode",
-				"gruntfuggly.todo-tree"			]
+				"gruntfuggly.todo-tree",
+				"xdebug.php-debug",
+				"neilbrayfield.php-docblocker",
+				"bmewburn.vscode-intelephense-client",
+				"wongjn.php-sniffer",
+				"valeryanm.vscode-phpsab",
+				"SanderRonde.phpstan-vscode"
+			]
 		}
 	}
 
