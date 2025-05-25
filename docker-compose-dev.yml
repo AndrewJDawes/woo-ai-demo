@@ -123,6 +123,14 @@ services:
         image: cr.weaviate.io/semitechnologies/text-spellcheck-model:pyspellchecker-en
         networks:
             woo-ai-demo-network:
+    weaviate-ui:
+        image: naaive/weaviate-ui:latest
+        ports:
+            - 8083:7777
+        environment:
+            WEAVIATE_URL: "http://weaviate:8080"
+        networks:
+            woo-ai-demo-network:
 
 networks:
     woo-ai-demo-network:
