@@ -484,14 +484,6 @@
         "exclude_ids": "",
         "exclude_search_ids": ""
     },
-    "wdm_locking": {
-        "0EE76D5EDD73E0E0F72D9E353901FB18": {
-            "product": "",
-            "category": "",
-            "product_cat": "",
-            "product_tag": ""
-        }
-    },
     "wdm_solr_operations_data": {
         "solr_index_indice": "0EE76D5EDD73E0E0F72D9E353901FB18",
         "post_types": {
@@ -504,22 +496,6 @@
         },
         "batch_size": {
             "0EE76D5EDD73E0E0F72D9E353901FB18": "100"
-        }
-    },
-    "solr_last_post_date_indexed": {
-        "0EE76D5EDD73E0E0F72D9E353901FB18": {
-            "product": {
-                "date": "2025-05-24 15:14:45",
-                "ID": "1988"
-            },
-            "category": {
-                "date": null,
-                "ID": "1"
-            },
-            "product_cat": {
-                "date": null,
-                "ID": "147"
-            }
         }
     },
     "wdm_solr_res_data": {
@@ -540,9 +516,6 @@
         "facets_orientation": "facets_orientation_vertical",
         "facets": "product_brand_str,product_type_str,pa_color_str,pa_pattern_str,pa_size_str,pa_strap_str,pa_style_str"
     },
-    "wdm_db": {
-        "current_version": "21.5"
-    },
     "wdm_import_export": {
         "wpsolr_setup_wizard_is_skipped": "1",
         "wdm_weaviate_converted_field_names": "1",
@@ -550,12 +523,9 @@
         "wpsolr_solr_indexes": "1",
         "solr_docs": "1",
         "wdm_solr_form_data": "1",
-        "wdm_locking": "1",
         "wdm_solr_operations_data": "1",
-        "solr_last_post_date_indexed": "1",
         "wdm_solr_res_data": "1",
         "wdm_solr_facet_data": "1",
-        "wdm_db": "1",
         "wdm_import_export": "1"
     }
 }
