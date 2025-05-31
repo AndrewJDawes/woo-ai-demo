@@ -116,6 +116,9 @@ services:
         image: naaive/weaviate-ui:latest
         ports:
             - 8083:7777
+        restart: unless-stopped
+        depends_on:
+            - weaviate
         environment:
             WEAVIATE_URL: "http://weaviate:8080"
         networks:
