@@ -7,6 +7,7 @@
 	"dockerComposeFile": ["../docker-compose-dev.yml"],
 	"service": "wordpress",
 	"workspaceFolder": "/var/www/",
+	"initializeCommand": "docker network create woo-ai-demo-network || echo 'Already exists'",
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
 	// "postAttachCommand": "eval \"$(fnm env --use-on-cd --shell bash)\"",
