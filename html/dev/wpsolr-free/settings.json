@@ -276,6 +276,7 @@
                 "index_analyser_id": "text2vec-contextionary",
                 "index_email": "",
                 "index_api_key": "",
+                "index_region_id": "",
                 "index_name": "myindex",
                 "index_label": "Myindex",
                 "index_client_adapter": "http",
@@ -326,11 +327,11 @@
         }
     },
     "solr_docs": {
-        "0EE76D5EDD73E0E0F72D9E353901FB18": 325
+        "0EE76D5EDD73E0E0F72D9E353901FB18": 1
     },
     "wdm_solr_form_data": {
-        "p_types": "product,category,product_cat,product_tag",
-        "taxonomies": "product_brand_str,product_type_str,product_visibility_str,product_cat_str,product_tag_str,product_shipping_class_str,pa_color_str,pa_pattern_str,pa_size_str,pa_strap_str,pa_style_str,product_visibility_str,product_shipping_class_str",
+        "p_types": "product",
+        "taxonomies": "product_brand_str,product_type_str,product_visibility_str,product_cat_str,product_tag_str,product_shipping_class_str,pa_color_str,pa_size_str,product_visibility_str,product_shipping_class_str",
         "cust_fields": {
             "product": {
                 "total_sales_str": "1",
@@ -496,6 +497,9 @@
         },
         "batch_size": {
             "0EE76D5EDD73E0E0F72D9E353901FB18": "100"
+        },
+        "is_debug_indexing": {
+            "0EE76D5EDD73E0E0F72D9E353901FB18": "is_debug_indexing"
         }
     },
     "wdm_solr_res_data": {
