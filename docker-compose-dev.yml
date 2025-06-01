@@ -16,7 +16,7 @@ services:
         ports:
             - "${ADMINER_HOST_PORT:-8081}:8080"
         environment:
-            ADMINER_DEFAULT_SERVER: db
+            ADMINER_DEFAULT_SERVER: ${WORDPRESS_DB_NAME:-db}
         networks:
             woo-ai-demo-network:
 
@@ -28,9 +28,9 @@ services:
             WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD:-db}
             WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST:-db:3306}
             WORDPRESS_TABLE_PREFIX: ${WORDPRESS_TABLE_PREFIX:-sdg_}
-            WORDPRESS_CONFIG_WP_HOME: ${WORDPRESS_CONFIG_WP_HOME:-http://localhost:${WORDPRESS_HOST_PORT:-8080}}
-            WORDPRESS_CONFIG_WP_SITEURL: ${WORDPRESS_CONFIG_WP_SITEURL:-http://localhost:${WORDPRESS_HOST_PORT:-8080}}
-            WORDPRESS_CONFIG_EXTRA: ${WORDPRESS_CONFIG_EXTRA:-define('WP_HOME',getenv_docker('WORDPRESS_CONFIG_WP_HOME','http://localhost:${WORDPRESS_HOST_PORT:-8080}')); define('WP_SITEURL',getenv_docker('WORDPRESS_CONFIG_WP_SITEURL','http://localhost:${WORDPRESS_HOST_PORT:-8080}')); define( 'FS_METHOD', 'direct'); define( 'DISABLE_WP_CRON', true ); define( 'WP_DEBUG_LOG', true); define( 'WP_DEBUG_DISPLAY', false);}
+            WORDPRESS_CONFIG_WP_HOME: ${WORDPRESS_CONFIG_WP_HOME:-${WORDPRESS_PROTOCOL:-http}://${WORDPRESS_DOMAIN:-localhost}:${WORDPRESS_HOST_PORT:-8080}}
+            WORDPRESS_CONFIG_WP_SITEURL: ${WORDPRESS_CONFIG_WP_SITEURL:-${WORDPRESS_PROTOCOL:-http}://${WORDPRESS_DOMAIN:-localhost}:${WORDPRESS_HOST_PORT:-8080}}
+            WORDPRESS_CONFIG_EXTRA: ${WORDPRESS_CONFIG_EXTRA:-define('WP_HOME',getenv_docker('WORDPRESS_CONFIG_WP_HOME','${WORDPRESS_PROTOCOL:-http}://${WORDPRESS_DOMAIN:-localhost}:${WORDPRESS_HOST_PORT:-8080}')); define('WP_SITEURL',getenv_docker('WORDPRESS_CONFIG_WP_SITEURL','${WORDPRESS_PROTOCOL:-http}://${WORDPRESS_DOMAIN:-localhost}:${WORDPRESS_HOST_PORT:-8080}')); define( 'FS_METHOD', 'direct'); define( 'DISABLE_WP_CRON', true ); define( 'WP_DEBUG_LOG', true); define( 'WP_DEBUG_DISPLAY', false);}
             WORDPRESS_DEBUG: ${WORDPRESS_DEBUG:-true}
         volumes:
             - ./:/var/www/
@@ -49,9 +49,9 @@ services:
             WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD:-db}
             WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST:-db:3306}
             WORDPRESS_TABLE_PREFIX: ${WORDPRESS_TABLE_PREFIX:-sdg_}
-            WORDPRESS_CONFIG_WP_HOME: ${WORDPRESS_CONFIG_WP_HOME:-http://localhost:${WORDPRESS_HOST_PORT:-8080}}
-            WORDPRESS_CONFIG_WP_SITEURL: ${WORDPRESS_CONFIG_WP_SITEURL:-http://localhost:${WORDPRESS_HOST_PORT:-8080}}
-            WORDPRESS_CONFIG_EXTRA: ${WORDPRESS_CONFIG_EXTRA:-define('WP_HOME',getenv_docker('WORDPRESS_CONFIG_WP_HOME','http://localhost:${WORDPRESS_HOST_PORT:-8080}')); define('WP_SITEURL',getenv_docker('WORDPRESS_CONFIG_WP_SITEURL','http://localhost:${WORDPRESS_HOST_PORT:-8080}')); define( 'FS_METHOD', 'direct'); define( 'DISABLE_WP_CRON', true ); define( 'WP_DEBUG_LOG', true); define( 'WP_DEBUG_DISPLAY', false);}
+            WORDPRESS_CONFIG_WP_HOME: ${WORDPRESS_CONFIG_WP_HOME:-${WORDPRESS_PROTOCOL:-http}://${WORDPRESS_DOMAIN:-localhost}:${WORDPRESS_HOST_PORT:-8080}}
+            WORDPRESS_CONFIG_WP_SITEURL: ${WORDPRESS_CONFIG_WP_SITEURL:-${WORDPRESS_PROTOCOL:-http}://${WORDPRESS_DOMAIN:-localhost}:${WORDPRESS_HOST_PORT:-8080}}
+            WORDPRESS_CONFIG_EXTRA: ${WORDPRESS_CONFIG_EXTRA:-define('WP_HOME',getenv_docker('WORDPRESS_CONFIG_WP_HOME','${WORDPRESS_PROTOCOL:-http}://${WORDPRESS_DOMAIN:-localhost}:${WORDPRESS_HOST_PORT:-8080}')); define('WP_SITEURL',getenv_docker('WORDPRESS_CONFIG_WP_SITEURL','${WORDPRESS_PROTOCOL:-http}://${WORDPRESS_DOMAIN:-localhost}:${WORDPRESS_HOST_PORT:-8080}')); define( 'FS_METHOD', 'direct'); define( 'DISABLE_WP_CRON', true ); define( 'WP_DEBUG_LOG', true); define( 'WP_DEBUG_DISPLAY', false);}
             WORDPRESS_DEBUG: ${WORDPRESS_DEBUG:-true}
         volumes:
             - ./html:/var/www/html
@@ -75,12 +75,12 @@ services:
             - --host
             - 0.0.0.0
             - --port
-            - "8080"
+            - "${WEAVIATE_PORT:-8080}"
             - --scheme
-            - http
+            - ${WEAVIATE_PROTOCOL:-http}
         image: cr.weaviate.io/semitechnologies/weaviate:1.30.0
         ports:
-            - 8082:8080
+            - 8082:${WEAVIATE_PORT:-8080}
             - 50051:50051
         volumes:
             - weaviate_data:/var/lib/weaviate
@@ -100,7 +100,7 @@ services:
         environment:
             OCCURRENCE_WEIGHT_LINEAR_FACTOR: 0.75
             EXTENSIONS_STORAGE_MODE: weaviate
-            EXTENSIONS_STORAGE_ORIGIN: http://weaviate:8080
+            EXTENSIONS_STORAGE_ORIGIN: ${WEAVIATE_PROTOCOL:-http}://${WEAVIATE_HOSTNAME:-weaviate}:${WEAVIATE_PORT:-8080}
             NEIGHBOR_OCCURRENCE_IGNORE_PERCENTILE: 5
             ENABLE_COMPOUND_SPLITTING: "false"
         image: cr.weaviate.io/semitechnologies/contextionary:en0.16.0-v1.2.1
@@ -120,7 +120,7 @@ services:
         depends_on:
             - weaviate
         environment:
-            WEAVIATE_URL: "http://weaviate:8080"
+            WEAVIATE_URL: "${WEAVIATE_PROTOCOL:-http}://${WEAVIATE_HOSTNAME:-weaviate}:${WEAVIATE_PORT:-8080}"
         networks:
             woo-ai-demo-network:
 
@@ -132,9 +132,9 @@ services:
             WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD:-db}
             WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST:-db:3306}
             WORDPRESS_TABLE_PREFIX: ${WORDPRESS_TABLE_PREFIX:-sdg_}
-            WORDPRESS_CONFIG_WP_HOME: ${WORDPRESS_CONFIG_WP_HOME:-http://localhost:${WORDPRESS_HOST_PORT:-8080}}
-            WORDPRESS_CONFIG_WP_SITEURL: ${WORDPRESS_CONFIG_WP_SITEURL:-http://localhost:${WORDPRESS_HOST_PORT:-8080}}
-            WORDPRESS_CONFIG_EXTRA: ${WORDPRESS_CONFIG_EXTRA:-define('WP_HOME',getenv_docker('WORDPRESS_CONFIG_WP_HOME','http://localhost:${WORDPRESS_HOST_PORT:-8080}')); define('WP_SITEURL',getenv_docker('WORDPRESS_CONFIG_WP_SITEURL','http://localhost:${WORDPRESS_HOST_PORT:-8080}')); define( 'FS_METHOD', 'direct'); define( 'DISABLE_WP_CRON', true ); define( 'WP_DEBUG_LOG', true); define( 'WP_DEBUG_DISPLAY', false);}
+            WORDPRESS_CONFIG_WP_HOME: ${WORDPRESS_CONFIG_WP_HOME:-${WORDPRESS_PROTOCOL:-http}://${WORDPRESS_DOMAIN:-localhost}:${WORDPRESS_HOST_PORT:-8080}}
+            WORDPRESS_CONFIG_WP_SITEURL: ${WORDPRESS_CONFIG_WP_SITEURL:-${WORDPRESS_PROTOCOL:-http}://${WORDPRESS_DOMAIN:-localhost}:${WORDPRESS_HOST_PORT:-8080}}
+            WORDPRESS_CONFIG_EXTRA: ${WORDPRESS_CONFIG_EXTRA:-define('WP_HOME',getenv_docker('WORDPRESS_CONFIG_WP_HOME','${WORDPRESS_PROTOCOL:-http}://${WORDPRESS_DOMAIN:-localhost}:${WORDPRESS_HOST_PORT:-8080}')); define('WP_SITEURL',getenv_docker('WORDPRESS_CONFIG_WP_SITEURL','${WORDPRESS_PROTOCOL:-http}://${WORDPRESS_DOMAIN:-localhost}:${WORDPRESS_HOST_PORT:-8080}')); define( 'FS_METHOD', 'direct'); define( 'DISABLE_WP_CRON', true ); define( 'WP_DEBUG_LOG', true); define( 'WP_DEBUG_DISPLAY', false);}
             WORDPRESS_DEBUG: ${WORDPRESS_DEBUG:-true}
         volumes:
             - ./html:/var/www/html
@@ -147,7 +147,7 @@ services:
             echo 'Waiting for database connection...' && sleep 5; \
             done; \
             if ! wp core is-installed --path=/var/www/html; then \
-            wp core install --url=${WORDPRESS_CONFIG_WP_HOME:-http://localhost:${WORDPRESS_HOST_PORT:-80}} \
+            wp core install --url=${WORDPRESS_CONFIG_WP_HOME:-${WORDPRESS_PROTOCOL:-http}://${WORDPRESS_DOMAIN:-localhost}:${WORDPRESS_HOST_PORT:-8080}} \
             --title=\"${WORDPRESS_SITE_TITLE:-WordPress Site}\" \
             --admin_user=\"${WORDPRESS_ADMIN_USER:-admin}\" \
             --admin_password=\"${WORDPRESS_ADMIN_PASSWORD:-admin}\" \
@@ -161,7 +161,7 @@ services:
             curl https://raw.githubusercontent.com/AndrewJDawes/woo-sample-data-set/refs/heads/main/mappings.csv -o /var/www/html/wp-content/uploads/mappings.csv && \
             wp wc import-csv /var/www/html/wp-content/uploads/products.csv --mappings=/var/www/html/wp-content/uploads/mappings.csv --path=/var/www/html --user=\"${WORDPRESS_ADMIN_USER:-admin}\"; \
             wp wpsolr import-settings-json dev/wpsolr-free/settings.json --path=/var/www/html ; \
-            wp wpsolr index-reindex 0EE76D5EDD73E0E0F72D9E353901FB18 --post-types=product; \
+            wp wpsolr index-reindex; \
             sleep infinity;"
         networks:
             woo-ai-demo-network:
