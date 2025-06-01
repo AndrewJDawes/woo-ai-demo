@@ -7,7 +7,7 @@
 use wpsolr\core\classes\engines\solarium\WPSOLR_IndexSolariumClient;
 use wpsolr\core\classes\models\WPSOLR_Model_Builder;
 use wpsolr\core\classes\engines\WPSOLR_AbstractIndexClient;
-
+use wpsolr\core\classes\extensions\indexes\WPSOLR_Option_Indexes;
 
 if (defined('WP_CLI') && WP_CLI) {
 
@@ -25,8 +25,8 @@ if (defined('WP_CLI') && WP_CLI) {
          *
          * ## OPTIONS
          *
-         * <index>
-         * : The index to rebuild
+         * [--indexes=<indexes>]
+         * : Comma-separated list of indexes to reindex. If not provided, all indexes will be reindexed.
          *
          * [--post-types=<post-types>]
          * : Comma-separated list of post types to index.
@@ -47,11 +47,11 @@ if (defined('WP_CLI') && WP_CLI) {
                 return;
             }
             try {
-                $index = $args[0];
+                $indexes = isset($assoc_args['indexes']) ? explode(',', $assoc_args['indexes']) : array_keys((new WPSOLR_Option_Indexes())->get_indexes());
                 $post_types = isset($assoc_args['post-types']) ? explode(',', $assoc_args['post-types']) : [];
                 $batch_size = isset($assoc_args['batch-size']) ? (int) $assoc_args['batch-size'] : 1000;
-                if (empty($index)) {
-                    WP_CLI::error('Index name is required.');
+                if (count($indexes) === 0) {
+                    WP_CLI::error('No indexes found.');
                     return;
                 }
                 if ($post_types && !is_array($post_types)) {
@@ -63,22 +63,35 @@ if (defined('WP_CLI') && WP_CLI) {
                     return;
                 }
 
-                $solr = WPSOLR_IndexSolariumClient::create($index);
+                foreach ($indexes as $index_uuid) {
+                    WP_CLI::line('Rebuilding index with UUID: ' . $index_uuid);
+                    $solr = WPSOLR_IndexSolariumClient::create($index_uuid);
 
-                $process_id = (string) (getmypid() ?? 'unknown');
+                    $model_types = WPSOLR_Model_Builder::get_model_type_objects($post_types);
 
-                $solr->reset_documents($process_id,  WPSOLR_Model_Builder::get_model_type_objects($post_types), true);
+                    $model_types_string = array_map(function ($model_type) {
+                        return $model_type->get_type();
+                    }, $model_types);
 
-                $res_final = $solr->index_data(
-                    false,
-                    $process_id,
-                    WPSOLR_Model_Builder::get_model_type_objects($post_types),
-                    $batch_size,
-                    null,
-                    false,
-                    false,
-                    false
-                );
+                    WP_CLI::line('Indexing the following model types: ' . implode(', ', $model_types_string));
+
+                    $process_id = (string) (getmypid() ?? 'unknown');
+
+                    $solr->reset_documents($process_id, $model_types, true);
+
+                    $res_final = $solr->index_data(
+                        false,
+                        $process_id,
+                        $model_types,
+                        $batch_size,
+                        null,
+                        false,
+                        false,
+                        false
+                    );
+                    WP_CLI::line('Indexing completed for index UUID: ' . $index_uuid);
+                }
+
 
                 WP_CLI::success(print_r($res_final, true));
             } finally {
@@ -98,8 +111,10 @@ if (defined('WP_CLI') && WP_CLI) {
             [
                 'type'      => 'positional',
                 'name'      => 'index',
-                'optional'  => false,
+                'optional'  => true,
                 'repeating' => false,
+                'description' => 'The index to reindex. If not provided, all indexes will be reindexed.',
+                'default'   => null,
             ],
             [
                 'type'      => 'assoc',
@@ -107,7 +122,7 @@ if (defined('WP_CLI') && WP_CLI) {
                 'optional'  => true,
                 'repeating' => false,
                 'description' => 'Comma-separated list of post types to index.',
-                'default'   => '',
+                'default'   => null,
             ],
             [
                 'type'      => 'assoc',
