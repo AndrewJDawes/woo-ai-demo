@@ -14,6 +14,7 @@ if ! wp core is-installed --path=/var/www/html; then
         --skip-themes;
 fi;
 if [ -n "${WORDPRESS_PLUGINS_TO_ACTIVATE:-woocommerce wpsolr-free}" ]; then wp plugin activate ${WORDPRESS_PLUGINS_TO_ACTIVATE:-woocommerce wpsolr-free} --path=/var/www/html; fi;
+wp option update woocommerce_coming_soon no --path=/var/www/html;
 curl https://raw.githubusercontent.com/AndrewJDawes/woo-sample-data-set/refs/heads/main/products.csv -o /var/www/html/wp-content/uploads/products.csv &&
 curl https://raw.githubusercontent.com/AndrewJDawes/woo-sample-data-set/refs/heads/main/mappings.csv -o /var/www/html/wp-content/uploads/mappings.csv &&
 wp wc import-csv /var/www/html/wp-content/uploads/products.csv --mappings=/var/www/html/wp-content/uploads/mappings.csv --path=/var/www/html --user="${WORDPRESS_ADMIN_USER:-admin}";
