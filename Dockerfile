@@ -134,7 +134,11 @@ COPY ./html /var/www/html
 # DANGER - doing this causes data to be written to anonymous volumes
 # VOLUME /var/www/html
 
-FROM base AS dev
+FROM base as init
+
+COPY ./scripts /scripts
+
+FROM init AS dev
 
 # RUN rm -rf /var/www/html
 

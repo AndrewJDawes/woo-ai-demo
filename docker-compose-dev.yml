@@ -151,7 +151,7 @@ services:
         depends_on:
             - wordpress
         command: >
-            /bin/bash /scripts/wpcli.sh
+            /bin/bash /scripts/init.sh
         networks:
             woo-ai-demo-network:
 
