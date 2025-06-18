@@ -1,11 +1,7 @@
 FROM php:8.1-apache AS base
 
-ARG REPO=woo-ai-demo-website-wp
-ARG OWNER=woo-ai-demo-github
-
 ARG NODE_VERSION=22
 
-LABEL org.opencontainers.image.source=https://github.com/${OWNER}/${REPO}
 
 # persistent dependencies
 RUN set -eux; \
