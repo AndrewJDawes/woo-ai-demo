@@ -136,19 +136,17 @@ COPY ./html /var/www/html
 
 FROM base as init
 
-COPY ./scripts /scripts
-
-FROM init AS dev
-
-# RUN rm -rf /var/www/html
-
-# Install git
-RUN apt-get update && apt-get install -y git
-
 # Install WP-CLI
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
     chmod +x wp-cli.phar && \
     mv wp-cli.phar /usr/local/bin/wp
+
+COPY ./scripts /scripts
+
+FROM init AS dev
+
+# Install git
+RUN apt-get update && apt-get install -y git
 
 # Download and install fnm:
 RUN apt update -y && apt install curl unzip -y \
