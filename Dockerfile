@@ -133,9 +133,11 @@ COPY ./html /var/www/html
 # DANGER - doing this causes data to be written to anonymous volumes
 # VOLUME /var/www/html
 
-FROM wordpress:cli as init
+FROM wordpress:cli as cli
 
 COPY --from=base /var/www/html /var/www/html
+
+FROM cli as init
 
 COPY ./scripts /scripts
 

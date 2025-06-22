@@ -5,7 +5,7 @@ pipeline {
         GHCR_USER = 'ASDFASDF' // This can technically be anything. The GitHub PAT is what actually authenticates to GHCR.
         // GHCR_REPOSITORY = 'your-github-username/your-image-name' # Actually, get this dynamically from Jenkins env vars
         GHCR_CREDENTIALS_ID = 'jenkins-github-ghcr-pat-token-andrewjdawes' // Jenkins Credentials ID for a GitHub PAT Token with read/write access to GHCR packages
-        DOCKER_STAGES = 'base init dev' // Stages to build in the Dockerfile
+        DOCKER_STAGES = 'base cli init dev' // Stages to build in the Dockerfile
     }
     stages {
         // Check out this way to detect if you are building a tag or not: https://www.youtube.com/watch?v=saiCjlJpfdA
