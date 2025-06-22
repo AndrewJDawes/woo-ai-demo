@@ -21,7 +21,9 @@ services:
             woo-ai-demo-network:
 
     wordpress:
-        build: ./
+        build:
+            context: .
+            target: dev
         environment:
             WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME:-db}
             WORDPRESS_DB_USER: ${WORDPRESS_DB_USER:-db}
@@ -42,7 +44,9 @@ services:
             woo-ai-demo-network:
 
     wpcron:
-        image: wordpress:cli
+        build:
+            context: .
+            target: cli
         environment:
             WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME:-db}
             WORDPRESS_DB_USER: ${WORDPRESS_DB_USER:-db}
@@ -125,7 +129,9 @@ services:
             woo-ai-demo-network:
 
     wpcli:
-        image: wordpress:cli
+        build:
+            context: .
+            target: init
         environment:
             WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME:-db}
             WORDPRESS_DB_USER: ${WORDPRESS_DB_USER:-db}
