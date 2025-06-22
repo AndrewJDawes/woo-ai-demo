@@ -95,23 +95,18 @@ pipeline {
                                                         variable: 'GHCR_PAT')]) {
                         sh '''
                         echo "${GHCR_PAT}" | docker login ${GHCR_REGISTRY} -u "${GHCR_USER}" --password-stdin
-
-                        docker manifest rm ${GHCR_REGISTRY}/${GHCR_REPOSITORY}:${DYNAMIC_TAG_NAME} || true
-
-                        docker manifest create ${GHCR_REGISTRY}/${GHCR_REPOSITORY}:${DYNAMIC_TAG_NAME} \
-                            ${GHCR_REGISTRY}/${GHCR_REPOSITORY}:${DYNAMIC_TAG_NAME}-amd64 \
-                            ${GHCR_REGISTRY}/${GHCR_REPOSITORY}:${DYNAMIC_TAG_NAME}-arm64 --amend
-
-                        docker manifest annotate ${GHCR_REGISTRY}/${GHCR_REPOSITORY}:${DYNAMIC_TAG_NAME} \
-                            ${GHCR_REGISTRY}/${GHCR_REPOSITORY}:${DYNAMIC_TAG_NAME}-amd64 --os linux --arch amd64
-
-                        docker manifest annotate ${GHCR_REGISTRY}/${GHCR_REPOSITORY}:${DYNAMIC_TAG_NAME} \
-                            ${GHCR_REGISTRY}/${GHCR_REPOSITORY}:${DYNAMIC_TAG_NAME}-arm64 --os linux --arch arm64
-
-                        # dump the manifest to see what it looks like
-                        docker manifest inspect ${GHCR_REGISTRY}/${GHCR_REPOSITORY}:${DYNAMIC_TAG_NAME}
-
-                        docker manifest push ${GHCR_REGISTRY}/${GHCR_REPOSITORY}:${DYNAMIC_TAG_NAME} --purge
+                        for stage in $DOCKER_STAGES; do
+                          docker manifest rm ${GHCR_REGISTRY}/${GHCR_REPOSITORY}:${DYNAMIC_TAG_NAME}-$stage || true
+                          docker manifest create ${GHCR_REGISTRY}/${GHCR_REPOSITORY}:${DYNAMIC_TAG_NAME}-$stage \
+                            ${GHCR_REGISTRY}/${GHCR_REPOSITORY}:${DYNAMIC_TAG_NAME}-$stage-amd64 \
+                            ${GHCR_REGISTRY}/${GHCR_REPOSITORY}:${DYNAMIC_TAG_NAME}-$stage-arm64 --amend
+                          docker manifest annotate ${GHCR_REGISTRY}/${GHCR_REPOSITORY}:${DYNAMIC_TAG_NAME}-$stage \
+                            ${GHCR_REGISTRY}/${GHCR_REPOSITORY}:${DYNAMIC_TAG_NAME}-$stage-amd64 --os linux --arch amd64
+                          docker manifest annotate ${GHCR_REGISTRY}/${GHCR_REPOSITORY}:${DYNAMIC_TAG_NAME}-$stage \
+                            ${GHCR_REGISTRY}/${GHCR_REPOSITORY}:${DYNAMIC_TAG_NAME}-$stage-arm64 --os linux --arch arm64
+                          docker manifest inspect ${GHCR_REGISTRY}/${GHCR_REPOSITORY}:${DYNAMIC_TAG_NAME}-$stage
+                          docker manifest push ${GHCR_REGISTRY}/${GHCR_REPOSITORY}:${DYNAMIC_TAG_NAME}-$stage --purge
+                        done
                         '''
                     }
                 }
