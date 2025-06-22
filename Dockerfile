@@ -133,22 +133,26 @@ COPY ./html /var/www/html
 # DANGER - doing this causes data to be written to anonymous volumes
 # VOLUME /var/www/html
 
-FROM wordpress:cli as cli
+FROM wordpress:cli AS cli
 
 COPY --from=base /var/www/html /var/www/html
 
-FROM cli as init
+FROM cli AS init
 
 COPY ./scripts /scripts
 
 FROM init AS dev
 
-# Install git
-RUN apt-get update && apt-get install -y git
+ARG NODE_VERSION=22
+
+ENV SHELL=/bin/bash
+
+USER root
+
+RUN apk add --no-cache git
 
 # Download and install fnm:
-RUN apt update -y && apt install curl unzip -y \
-    && curl -fsSL https://fnm.vercel.app/install | bash -s -- --install-dir "$HOME/.fnm" \
+RUN curl -fsSL https://fnm.vercel.app/install | bash -s -- --install-dir "$HOME/.fnm" \
     && cp "$HOME/.fnm/fnm" /usr/bin && fnm install $NODE_VERSION \
     && echo 'eval "$(fnm env --use-on-cd --shell bash)"' >> "$HOME/.bashrc"
 
