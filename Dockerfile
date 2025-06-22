@@ -2,7 +2,6 @@ FROM php:8.1-apache AS base
 
 ARG NODE_VERSION=22
 
-
 # persistent dependencies
 RUN set -eux; \
     apt-get update; \
@@ -134,12 +133,9 @@ COPY ./html /var/www/html
 # DANGER - doing this causes data to be written to anonymous volumes
 # VOLUME /var/www/html
 
-FROM base as init
+FROM wordpress:cli as init
 
-# Install WP-CLI
-RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
-    chmod +x wp-cli.phar && \
-    mv wp-cli.phar /usr/local/bin/wp
+COPY --from=base /var/www/html /var/www/html
 
 COPY ./scripts /scripts
 

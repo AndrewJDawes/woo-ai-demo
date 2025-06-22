@@ -54,14 +54,14 @@ pipeline {
                     agent { label 'docker && amd64' }
                     steps {
                         script {
-                            withCredentials([string(credentialsId: GHCR_CREDENTIALS_ID,
-                                                             variable: 'GHCR_PAT')]) {
+                            withCredentials([string(credentialsId: GHCR_CREDENTIALS_ID, variable: 'GHCR_PAT')]) {
                                 sh '''
-                                echo $GHCR_PAT | wc -m
                                 echo "${GHCR_PAT}" | docker login "${GHCR_REGISTRY}" -u "${GHCR_USER}" --password-stdin
-                                docker build --label "org.opencontainers.image.source=${LABEL_ORG_OPENCONTAINERS_IMAGE_SOURCE}" --target init -t ${GHCR_REGISTRY}/${GHCR_REPOSITORY}:${DYNAMIC_TAG_NAME}-amd64 .
-                                docker image inspect ${GHCR_REGISTRY}/${GHCR_REPOSITORY}:${DYNAMIC_TAG_NAME}-amd64
-                                docker push ${GHCR_REGISTRY}/${GHCR_REPOSITORY}:${DYNAMIC_TAG_NAME}-amd64
+                                for stage in base init dev; do
+                                  docker build --label "org.opencontainers.image.source=${LABEL_ORG_OPENCONTAINERS_IMAGE_SOURCE}" --target $stage -t ${GHCR_REGISTRY}/${GHCR_REPOSITORY}:${DYNAMIC_TAG_NAME}-$stage-amd64 .
+                                  docker image inspect ${GHCR_REGISTRY}/${GHCR_REPOSITORY}:${DYNAMIC_TAG_NAME}-$stage-amd64
+                                  docker push ${GHCR_REGISTRY}/${GHCR_REPOSITORY}:${DYNAMIC_TAG_NAME}-$stage-amd64
+                                done
                                 '''
                             }
                         }
@@ -71,14 +71,14 @@ pipeline {
                     agent { label 'docker && arm64' }
                     steps {
                         script {
-                            withCredentials([string(credentialsId: GHCR_CREDENTIALS_ID,
-                                                             variable: 'GHCR_PAT')]) {
+                            withCredentials([string(credentialsId: GHCR_CREDENTIALS_ID, variable: 'GHCR_PAT')]) {
                                 sh '''
-                                echo $GHCR_PAT | wc -m
                                 echo "${GHCR_PAT}" | docker login "${GHCR_REGISTRY}" -u "${GHCR_USER}" --password-stdin
-                                docker build --label "org.opencontainers.image.source=${LABEL_ORG_OPENCONTAINERS_IMAGE_SOURCE}" --target init -t ${GHCR_REGISTRY}/${GHCR_REPOSITORY}:${DYNAMIC_TAG_NAME}-arm64 .
-                                docker image inspect ${GHCR_REGISTRY}/${GHCR_REPOSITORY}:${DYNAMIC_TAG_NAME}-arm64
-                                docker push ${GHCR_REGISTRY}/${GHCR_REPOSITORY}:${DYNAMIC_TAG_NAME}-arm64
+                                for stage in base init dev; do
+                                  docker build --label "org.opencontainers.image.source=${LABEL_ORG_OPENCONTAINERS_IMAGE_SOURCE}" --target $stage -t ${GHCR_REGISTRY}/${GHCR_REPOSITORY}:${DYNAMIC_TAG_NAME}-$stage-arm64 .
+                                  docker image inspect ${GHCR_REGISTRY}/${GHCR_REPOSITORY}:${DYNAMIC_TAG_NAME}-$stage-arm64
+                                  docker push ${GHCR_REGISTRY}/${GHCR_REPOSITORY}:${DYNAMIC_TAG_NAME}-$stage-arm64
+                                done
                                 '''
                             }
                         }
