@@ -24,7 +24,7 @@ wpsolrtemplatefile=$(mktemp)
 WPSOLR_SETTINGS_URL="${WPSOLR_SETTINGS_URL:-https://raw.githubusercontent.com/AndrewJDawes/woo-ai-demo-wpsolr-settings/refs/heads/main/settings.json}"
 curl "$WPSOLR_SETTINGS_URL" -o "$wpsolrtemplatefile"
 wpsolrsettingsfile=$(mktemp)
-eval 'echo "$(< \"$wpsolrtemplatefile\" )"' >"$wpsolrsettingsfile"
+eval 'echo "$(< "$wpsolrtemplatefile" )"' >"$wpsolrsettingsfile"
 wp wpsolr import-settings-json "$wpsolrsettingsfile" --path=/var/www/html
 wp wpsolr index-reindex
 sleep infinity
