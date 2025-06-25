@@ -141,6 +141,12 @@ FROM cli AS init
 
 COPY ./scripts /scripts
 
+USER root
+
+RUN apk add --no-cache gomplate
+
+USER www-data
+
 FROM init AS dev
 
 ARG NODE_VERSION=22

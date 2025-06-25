@@ -21,10 +21,10 @@ curl "$PRODUCTS_CSV_URL" -o /var/www/html/wp-content/uploads/products.csv &&
     curl "$MAPPINGS_CSV_URL" -o /var/www/html/wp-content/uploads/mappings.csv &&
     wp wc import-csv /var/www/html/wp-content/uploads/products.csv --mappings=/var/www/html/wp-content/uploads/mappings.csv --path=/var/www/html --user="${WORDPRESS_ADMIN_USER:-admin}"
 wpsolrtemplatefile=$(mktemp)
-WPSOLR_SETTINGS_URL="${WPSOLR_SETTINGS_URL:-https://raw.githubusercontent.com/AndrewJDawes/woo-ai-demo-wpsolr-settings/refs/heads/main/settings.json}"
+WPSOLR_SETTINGS_URL="${WPSOLR_SETTINGS_URL:-https://raw.githubusercontent.com/AndrewJDawes/woo-ai-demo-wpsolr-settings/refs/heads/main/settings.json.tmpl}"
 curl "$WPSOLR_SETTINGS_URL" -o "$wpsolrtemplatefile"
 wpsolrsettingsfile=$(mktemp)
-eval "echo \"$(<"$wpsolrtemplatefile")\"" >"$wpsolrsettingsfile"
+gomplate -f "$wpsolrtemplatefile" -o "$wpsolrsettingsfile"
 wp wpsolr import-settings-json "$wpsolrsettingsfile" --path=/var/www/html
 wp wpsolr index-reindex
 sleep infinity
