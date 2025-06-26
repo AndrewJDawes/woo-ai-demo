@@ -17,8 +17,9 @@ if [ -n "${WORDPRESS_PLUGINS_TO_ACTIVATE:-woocommerce wpsolr-free}" ]; then wp p
 wp option update woocommerce_coming_soon no --path=/var/www/html
 PRODUCTS_CSV_URL="${PRODUCTS_CSV_URL:-https://raw.githubusercontent.com/AndrewJDawes/woo-sample-data-set/refs/heads/main/products.csv}"
 MAPPINGS_CSV_URL="${MAPPINGS_CSV_URL:-https://raw.githubusercontent.com/AndrewJDawes/woo-sample-data-set/refs/heads/main/mappings.csv}"
-productsfile=$(mktemp)
-mappingsfile=$(mktemp)
+productimportdir=$(mktemp -d)
+productsfile="${productimportdir}/products.csv"
+mappingsfile="${productimportdir}/mappings.csv"
 curl "$PRODUCTS_CSV_URL" -o "$productsfile" &&
     curl "$MAPPINGS_CSV_URL" -o "$mappingsfile" &&
     wp wc import-csv "$productsfile" --mappings="$mappingsfile" --path=/var/www/html --user="${WORDPRESS_ADMIN_USER:-admin}"
