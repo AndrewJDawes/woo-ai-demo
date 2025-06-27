@@ -15,6 +15,8 @@ if ! wp core is-installed --path=/var/www/html; then
 fi
 if [ -n "${WORDPRESS_PLUGINS_TO_ACTIVATE:-woocommerce wpsolr-free}" ]; then wp plugin activate ${WORDPRESS_PLUGINS_TO_ACTIVATE:-woocommerce wpsolr-free} --path=/var/www/html; fi
 wp option update woocommerce_coming_soon no --path=/var/www/html
+wp option update woocommerce_store_pages_only no --path=/var/www/html
+wp option update woocommerce_private_link no --path=/var/www/html
 PRODUCTS_CSV_URL="${PRODUCTS_CSV_URL:-https://raw.githubusercontent.com/AndrewJDawes/woo-sample-data-set/refs/heads/main/products.csv}"
 MAPPINGS_CSV_URL="${MAPPINGS_CSV_URL:-https://raw.githubusercontent.com/AndrewJDawes/woo-sample-data-set/refs/heads/main/mappings.csv}"
 productimportdir=$(mktemp -d)
