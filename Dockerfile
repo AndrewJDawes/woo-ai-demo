@@ -128,14 +128,14 @@ RUN set -eux; \
     find /etc/apache2 -type f -name '*.conf' -exec sed -ri 's/([[:space:]]*LogFormat[[:space:]]+"[^"]*)%h([^"]*")/\1%a\2/g' '{}' +
 
 # Copy HTML files
-COPY ./html /var/www/html
+COPY --chown=www-data:www-data ./html /var/www/html
 
 # DANGER - doing this causes data to be written to anonymous volumes
 # VOLUME /var/www/html
 
 FROM wordpress:cli AS cli
 
-COPY --from=base /var/www/html /var/www/html
+COPY --from=base --chown=www-data /var/www/html /var/www/html
 
 FROM cli AS init
 
