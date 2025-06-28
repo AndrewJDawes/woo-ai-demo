@@ -135,7 +135,20 @@ COPY --chown=www-data:www-data ./html /var/www/html
 
 FROM wordpress:cli AS cli
 
-COPY --from=base --chown=www-data /var/www/html /var/www/html
+USER root
+
+# Create a user named wpcli with UID 33 and GID 33
+# Create a user named wpcli with UID 33 and GID 33 (Alpine style)
+RUN set -eux; \
+    addgroup -g 33 wpcli; \
+    adduser -u 33 -G wpcli -h /home/wpcli -s /bin/sh -D "wpcli"; \
+    mkdir -p /home/wpcli; \
+    chown wpcli:wpcli /home/wpcli; \
+    chmod 755 /home/wpcli;
+
+USER wpcli
+
+COPY --from=base --chown=wpcli:wpcli /var/www/html /var/www/html
 
 FROM cli AS init
 
@@ -145,7 +158,7 @@ USER root
 
 RUN apk add --no-cache gomplate
 
-USER www-data
+USER wpcli
 
 FROM init AS dev
 
@@ -155,10 +168,15 @@ ENV SHELL=/bin/bash
 
 USER root
 
-RUN apk add --no-cache git
+RUN apk add --no-cache sudo git
+
+RUN mkdir -p /etc/sudoers.d; \
+    echo 'wpcli ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/wpcli; \
+    chmod 0440 /etc/sudoers.d/wpcli
 
 # Download and install fnm:
 RUN curl -fsSL https://fnm.vercel.app/install | bash -s -- --install-dir "$HOME/.fnm" \
     && cp "$HOME/.fnm/fnm" /usr/bin && fnm install $NODE_VERSION \
     && echo 'eval "$(fnm env --use-on-cd --shell bash)"' >> "$HOME/.bashrc"
 
+USER wpcli
