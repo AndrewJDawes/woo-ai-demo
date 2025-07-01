@@ -130,6 +130,10 @@ RUN set -eux; \
 # Copy HTML files
 COPY --chown=www-data:www-data ./html /var/www/html
 
+USER www-data
+
+RUN mkdir -p /var/www/html/wp-content/uploads
+
 # DANGER - doing this causes data to be written to anonymous volumes
 # VOLUME /var/www/html
 
