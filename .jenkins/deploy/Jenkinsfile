@@ -112,5 +112,43 @@ pipeline {
                 }
             }
         }
+        stage('Deploy to Portainer') {
+            when {
+                branch 'main';
+            }
+            agent {
+                docker {
+                    alwaysPull true
+                    registryUrl "https://ghcr.io"
+                    // Has to be a Jenkins username/password credential - not just string. Otherwise, Jenkins will say it can't find the credential.
+                    registryCredentialsId "jenkins-github-ghcr-pat-token-andrewjdawes-username-password"
+                    image 'ghcr.io/andrewjdawes/woo-ai-demo-deploy:v1'
+                    args "-u root --entrypoint ''"
+                }
+            }
+            steps {
+                script {
+                    withCredentials(bindings: [ \
+                        sshUserPrivateKey( \
+                            credentialsId: 'application-deployment-previously-authorized-private-key', \
+                            keyFileVariable: 'JENKINS_CREDENTIAL_APPLICATION_DEPLOYMENT_PREVIOUSLY_AUTHORIZED_SSH_KEY_PRIVATE', \
+                            // usernameVariable: 'JENKINS_CREDENTIAL_APPLICATION_DEPLOYMENT_PREVIOUSLY_AUTHORIZED_SSH_USERNAME' \
+                        ), \
+                        conjurSecretCredential(credentialsId: 'andrewjdawes-woo-ai-demo-mysql-root-password', variable: 'MYSQL_ROOT_PASSWORD'), \
+                        conjurSecretCredential(credentialsId: 'andrewjdawes-woo-ai-wordpress-db-password', variable: 'WORDPRESS_DB_PASSWORD'), \
+                        conjurSecretCredential(credentialsId: 'andrewjdawes-woo-ai-wordpress-admin-password', variable: 'WORDPRESS_ADMIN_PASSWORD'), \
+                    ]) {
+                        sh '''
+                        echo "Setting up SSH credentials inside Docker container..."
+                        mkdir -p $HOME/.ssh
+                        cp ${JENKINS_CREDENTIAL_APPLICATION_DEPLOYMENT_PREVIOUSLY_AUTHORIZED_SSH_KEY_PRIVATE} $HOME/.ssh/id_rsa
+                        chmod 600 $HOME/.ssh/id_rsa
+
+                        bash /workspace/entrypoint.sh
+                        '''
+                    }
+                }
+            }
+        }
     }
 }
